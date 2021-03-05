@@ -6,11 +6,9 @@ import gunicorn
 
 from gds_metrics.gunicorn import child_exit  # noqa
 
-workers = 5
+workers = 4
 worker_class = "eventlet"
-errorlog = "/home/vcap/logs/gunicorn_error.log"
 bind = "0.0.0.0:{}".format(os.getenv("PORT"))
-disable_redirect_access_to_syslog = True
 gunicorn.SERVER_SOFTWARE = 'None'
 
 
