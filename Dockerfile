@@ -34,11 +34,6 @@ COPY . /app
 
 RUN npm run build
 
-RUN make generate-version-file
-
 ENV PORT=6012
-
-ARG GIT_SHA
-ENV GIT_SHA ${GIT_SHA}
 
 CMD ["sh", "-c", "gunicorn -c gunicorn_config.py application"]

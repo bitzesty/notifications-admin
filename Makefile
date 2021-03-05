@@ -13,10 +13,6 @@ GIT_COMMIT ?= $(shell git rev-parse HEAD 2> /dev/null || echo "")
 help:
 	@cat $(MAKEFILE_LIST) | grep -E '^[a-zA-Z_-]+:.*?## .*$$' | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
-.PHONY: generate-version-file
-generate-version-file: ## Generates the app version file
-	printf "__travis_commit__ = \"${GIT_COMMIT}\"\n__time__ = \"${DATE}\"\n__travis_job_number__ = \"0\"\n__travis_job_url__ = \"\"\n" > ${APP_VERSION_FILE}
-
 .PHONY: test
 test:
 	./scripts/run_tests.sh
