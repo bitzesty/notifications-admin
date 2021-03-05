@@ -15,6 +15,7 @@ environment:
 services:
   web:
     command: 'gunicorn -c gunicorn_config.py application'
+    domain: ${DOMAIN}
     port: 6012
     scale:
       memory: 1024
