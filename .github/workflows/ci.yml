@@ -15,7 +15,6 @@ jobs:
       env:
         NOTIFY_ENVIRONMENT: 'development'
         FLASK_APP: 'application.py'
-        SQLALCHEMY_DATABASE_URI: "postgresql://postgres:postgres@localhost:5432/test_notification_admin"
       run: |
         make generate-version-file
         pip3 install -r requirements_for_test.txt
