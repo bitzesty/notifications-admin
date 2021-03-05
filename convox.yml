@@ -1,0 +1,18 @@
+environment:
+  - NOTIFY_APP_NAME=admin
+  - API_HOST_NAME
+  - NOTIFY_ENVIRONMENT
+  - DOMAIN
+  - AWS_DEFAULT_REGION
+  - AWS_REGION
+  - AWS_ACCESS_KEY_ID
+  - AWS_SECRET_ACCESS_KEY
+  - SQLALCHEMY_DATABASE_URI
+  - SENTRY_DSN
+  - NOTIFY_LOG_PATH
+services:
+  web:
+    command: 'gunicorn -c gunicorn_config.py application'
+    port: 6012
+    scale:
+      memory: 1024
