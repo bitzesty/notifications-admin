@@ -11,12 +11,10 @@ environment:
   - AWS_ACCESS_KEY_ID
   - AWS_SECRET_ACCESS_KEY
   - SENTRY_DSN
-  - NOTIFY_LOG_PATH=/tmp/logs
+  - NOTIFY_LOG_PATH=application.log
 services:
   web:
     command: 'gunicorn -c gunicorn_config.py application'
     port: 6012
-    volumes:
-      - /tmp/logs
     scale:
       memory: 1024
