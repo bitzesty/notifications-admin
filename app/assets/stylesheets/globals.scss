@@ -1,5 +1,83 @@
 @import 'settings/typography-font-families';
 
+
+// whites, blacks & greys
+$white: #fff;
+$off-white: #f5f5f5;
+$off-black: #121212;
+$brand-navy: #0a0039;
+$mid-grey: #9A9A9A;
+
+// brand colours
+$brand-red: #ff5c5c;
+$brand-pink: #ee7abb;
+$brand-turquoise: #22cae1;
+$brand-yellow: #ffe8b4;
+$brand-green: #09CA77;
+$brand-navy-5: rgba($brand-navy, 0.05);
+$brand-navy-10: #E6E5EB;
+$brand-navy-75: #474069;
+
+$brand-light-turquoise: #C5F1F7;
+
+// functional colours
+$green: #019B59;
+
+// active/inactive
+$active-state: $green;
+$inactive-state: $mid-grey;
+
+// phase banners
+$alpha: #FF64BE;
+$alpha-label-bg: #FBD0E9;
+$alpha-label-text: #990059;
+
+$beta: #FF8000;
+$beta-label-bg: #FFD9B3;
+$beta-label-text: #663300;
+
+$discovery: #0CA6F3;
+$discovery-label-bg: #CEECFD;
+$discovery-label-text: #043049;
+
+$idea: #C2E9FC;
+$idea-label-bg: #F0FAFE;
+$idea-label-text: #043049;
+
+$live: #00B200;
+$live-label-bg: #ABEDAB;
+$live-label-text: #003906;
+
+$scoping: #86D2F9;
+$scoping-label-bg: #E7F6FE;
+$scoping-label-text: #043049;
+
+$govuk-link-colour: $brand-navy-75;
+$govuk-link-hover-colour: $brand-navy;
+$govuk-link-active-colour: $brand-navy;
+$govuk-border-colour: $brand-navy-75;
+$govuk-focus-text-colour: $black;
+
+
+$govuk-button-colour: $brand-navy-75; // sass-lint:disable no-color-literals
+$govuk-button-hover-colour: $brand-navy;
+$govuk-button-shadow-colour: govuk-shade($brand-navy-75, 60%);
+$govuk-button-text-colour: $white;
+
+// Secondary button variables
+$govuk-secondary-button-colour: $mid-grey;
+$govuk-secondary-button-hover-colour: govuk-shade($govuk-secondary-button-colour, 10%);
+$govuk-secondary-button-shadow-colour: govuk-shade($govuk-secondary-button-colour, 40%);
+$govuk-secondary-button-text-colour: $black;
+
+// Warning button variables
+$govuk-warning-button-colour: $alpha-label-text;
+$govuk-warning-button-hover-colour: govuk-shade($govuk-warning-button-colour, 20%);
+$govuk-warning-button-shadow-colour: govuk-shade($govuk-warning-button-colour, 60%);
+$govuk-warning-button-text-colour: $white;
+
+// $govuk-font-family: ;
+
 // needed for IE10 desktop snap mode: http://menacingcloud.com/?c=cssViewportOrMetaTag
 @-ms-viewport {
   width: device-width;
@@ -13,6 +91,7 @@
 body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  color: $off-black;
 }
 
 b,
