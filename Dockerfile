@@ -32,8 +32,6 @@ RUN npm ci
 
 COPY . /app
 
-RUN make babel
-
 RUN npm run build
 
 RUN make generate-version-file
