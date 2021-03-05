@@ -1,80 +1,34 @@
-FROM python:3.5-slim-jessie
+FROM python:3.6-alpine
 
-ARG HTTP_PROXY
-ARG HTTPS_PROXY
-ARG NO_PROXY
+ENV PYTHONDONTWRITEBYTECODE 1
 
-ENV PYTHONUNBUFFERED=1 \
-	DEBIAN_FRONTEND=noninteractive \
-	NODEJS_VERSION=10.x \
-	GOSU_VERSION=1.10
+RUN apk add --no-cache bash build-base libxml2-dev libxslt-dev git nodejs npm g++ make libffi-dev && rm -rf /var/cache/apk/*
 
-RUN \
-	echo "Install base packages" \
-	&& ([ -z "$HTTP_PROXY" ] || echo "Acquire::http::Proxy \"${HTTP_PROXY}\";" > /etc/apt/apt.conf.d/99HttpProxy) \
-	&& apt-get update \
-	&& apt-get install -y --no-install-recommends \
-		apt-transport-https \
-		make \
-		curl \
-		git \
-		build-essential \
-		libxml2-dev \
-		libxslt-dev \
-		zlib1g-dev \
-		zip \
-		rlwrap \
-		python-dev \
-		libffi-dev \
-		libssl-dev \
-		libexif-dev \
-		libfreetype6-dev \
-		libjpeg-dev \
-		liblcms2-2 \
-		libtiff5-dev \
-		zlib1g-dev \
-		libpango1.0-dev \
-		libcairo2-dev \
-		libmagickwand-dev \
-		ghostscript \
-		jq \
-		libjpeg62 \
+# update pip
+RUN python -m pip install wheel
 
-	&& echo "Install nodejs" \
-	&& cd /tmp \
-	&& curl -x "$HTTP_PROXY" -sL https://deb.nodesource.com/setup_${NODEJS_VERSION} | bash - \
-	&& apt-get install -y --no-install-recommends nodejs \
+# -- Install Application into container:
+RUN set -ex && mkdir /app
 
-	&& echo "Clean up" \
-	&& rm -rf /var/lib/apt/lists/* /tmp/*
+WORKDIR /app
 
-RUN \
-	echo "Install global pip packages" \
-	&& pip install \
-		virtualenv \
-		awscli \
-		wheel
+COPY requirements.txt /app
+RUN set -ex && pip3 install -r requirements.txt
 
-RUN \
-	echo "Install Cloud Foundry CLI" \
-	&& curl -sSL "https://cli.run.pivotal.io/stable?release=debian64&source=github" -o /tmp/cloudfoundry-cli.deb \
-	&& dpkg -i /tmp/cloudfoundry-cli.deb
+COPY package.json package-lock.json /app/
+RUN npm ci
 
-COPY tianon.gpg /tmp/tianon.gpg
+COPY . /app
 
-RUN \
-	echo "Install gosu" \
-	&& curl -sSL -o /usr/local/bin/gosu "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$(dpkg --print-architecture)" \
-	&& curl -sSL -o /usr/local/bin/gosu.asc "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$(dpkg --print-architecture).asc" \
-	&& export GNUPGHOME="$(mktemp -d)" \
-	&& gpg --import /tmp/tianon.gpg \
-	&& gpg --batch --verify /usr/local/bin/gosu.asc /usr/local/bin/gosu \
-	&& rm -r "$GNUPGHOME" /usr/local/bin/gosu.asc \
-	&& chmod +x /usr/local/bin/gosu \
-	&& gosu nobody true
+RUN make babel
 
-WORKDIR /var/project
+RUN npm run build
 
-COPY entrypoint.sh /usr/local/bin/docker-entrypoint
+RUN make generate-version-file
 
-ENTRYPOINT ["/usr/local/bin/docker-entrypoint"]
+ENV PORT=6012
+
+ARG GIT_SHA
+ENV GIT_SHA ${GIT_SHA}
+
+CMD ["sh", "-c", "gunicorn -c gunicorn_config.py application"]
