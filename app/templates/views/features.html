@@ -9,12 +9,11 @@
 {% block content_column_content %}
 
 <h1 class="heading-large">Features</h1>
-<p class="govuk-body">If you work for central government, a local authority or the NHS, you can use GOV.UK Notify to keep your users updated.</p>
+<p class="govuk-body">If you work for a charity, a non-profit or a community interest company, you can use Catalyst Notify to keep your users updated.</p>
 <p class="govuk-body">Notify makes it easy to create, customise and send:</p>
 <ul class="list list-bullet">
   <li><a class="govuk-link govuk-link--no-visited-state" href="{{ url_for('main.features_email') }}">emails</a></li>
   <li><a class="govuk-link govuk-link--no-visited-state" href="{{ url_for('main.features_sms') }}">text messages</a></li>
-  <li><a class="govuk-link govuk-link--no-visited-state" href="{{ url_for('main.features_letters') }}">letters</a></li>
 </ul>
 <p class="govuk-body">You do not need any technical knowledge to use Notify.</p>
 {% if not current_user.is_authenticated %}
