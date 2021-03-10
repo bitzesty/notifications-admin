@@ -1,0 +1,106 @@
+## We don’t allow committing certain file types that risk containing users’ personal information
+## If you are sure that a file is OK, you can explicitly add it to the list of allowed files
+*.pdf
+*.PDF
+*.csv
+*.CSV
+*.doc
+*.DOC
+*.docx
+*.DOCX
+*.xls
+*.XLS
+*.xlsx
+*.XLSX
+
+## Non user files allowed to be commited
+!tests/test_pdf_files/no_eof_marker.pdf
+!tests/test_pdf_files/multi_page_pdf.pdf
+!tests/test_pdf_files/big.pdf
+!tests/test_pdf_files/one_page_pdf.pdf
+!tests/non_spreadsheet_files/actually_a_png.csv
+!tests/spreadsheet_files/newline_windows.csv
+!tests/spreadsheet_files/newline_unix.csv
+!tests/non_spreadsheet_files/actually_a_png.xls
+!tests/spreadsheet_files/EXCEL_95.XLS
+!tests/spreadsheet_files/excel_97.xls
+!tests/non_spreadsheet_files/actually_a_png.xlsx
+!tests/spreadsheet_files/excel 2007.xlsx
+!app/broadcast_areas/source_files/Lower_Tier_Local_Authority_to_Upper_Tier_Local_Authority__December_2019__Lookup_in_England_and_Wales.csv
+!app/broadcast_areas/source_files/MYE1-2019.csv
+!app/broadcast_areas/source_files/Mid-2019_Persons_England_Wales.csv
+!app/broadcast_areas/source_files/Mid-2019_Persons_Scotland.csv
+!app/broadcast_areas/source_files/Ward-2014_Northern_Ireland.csv
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+env/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
+venv/
+
+# PyInstaller
+#  Usually these files are written by a python script from a template
+#  before PyInstaller builds the exe, so as to inject date/other infos into it.
+*.manifest
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.coverage
+.coverage.*
+.cache
+.pytest_cache
+coverage.xml
+test_results.xml
+*,cover
+
+# Translations
+*.mo
+*.pot
+
+# Django stuff:
+*.log
+
+# Sphinx documentation
+docs/_build/
+
+# PyBuilder
+target/
+.idea/
+.DS_Store
+.vscode
+
+# Frontend dependencies and compiled assets
+.sass-cache/
+cache/
+node_modules
+bower_components
+npm-debug.log
+
+environment.sh
+.envrc
