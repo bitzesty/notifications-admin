@@ -76,6 +76,25 @@ $govuk-warning-button-hover-colour: govuk-shade($govuk-warning-button-colour, 20
 $govuk-warning-button-shadow-colour: govuk-shade($govuk-warning-button-colour, 60%);
 $govuk-warning-button-text-colour: $white;
 
+
+
+
+$govuk-font-family: 'Poppins', sans-serif;
+
+/// Font families to use when displaying tabular numbers
+///
+/// @type List
+/// @access public
+
+$govuk-font-family-tabular: 'Poppins', sans-serif;
+
+/// Font families to use for print media
+///
+/// @type List
+/// @access public
+
+$govuk-font-family-print: 'Poppins', sans-serif;
+
 // $govuk-font-family: ;
 
 // needed for IE10 desktop snap mode: http://menacingcloud.com/?c=cssViewportOrMetaTag
@@ -92,6 +111,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: $off-black;
+  font-family: 'Poppins', sans-serif !important;
 }
 
 b,

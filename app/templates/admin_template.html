@@ -12,9 +12,8 @@
 {% endblock %}
 
 {% block head %}
-  {%- for font in font_paths %}
-  <link rel="preload" href="{{ asset_url(font, with_querystring_hash=False) }}" as="font" type="font/woff2" crossorigin>
-  {%- endfor %}
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" media="screen" href="{{ asset_url('stylesheets/main.css') }}" />
   <link rel="stylesheet" media="print" href="{{ asset_url('stylesheets/print.css') }}" />
   {% block extra_stylesheets %}
@@ -128,12 +127,7 @@
       <div class="govuk-header__logo">
         <a href="{{ url_for('main.show_accounts_or_dashboard') }}" class="govuk-header__link govuk-header__link--homepage">
           <span class="govuk-header__logotype">
-            <span class="govuk-header__logotype-text">
-              Catalyst
-            </span>
-          </span>
-          <span class="govuk-header__product-name">
-            Notify
+            <img src="/static/images/catalyst_logo.svg" alt="Catalyst" height="50px">
           </span>
         </a>
       </div>
@@ -163,6 +157,21 @@
       </div>
     </div>
   </header>
+
+  <div class="proposition-phase">
+    <div class="grid-container">
+      <div class="column-full-width">
+        <div class="inner govuk-width-container">
+          <div class="phase-banner">
+            <span class="phase-label is-alpha">Alpha</span>
+            <span class="phase-notice">This is a new service – your <a
+                href="https://airtable.com/shrcSFfRzVT0bucct?prefill_Recipe+Page=https://recipes.thecatalyst.org.uk/"
+                target="_blank" rel="noopener">feedback</a> will help us to improve it.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 {% endblock %}
 
 {% block footer %}
