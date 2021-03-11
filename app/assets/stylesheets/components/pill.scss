@@ -35,21 +35,23 @@
   }
 
   &-item {
-    $background: $link-colour;
+    $background: $white;
     background: $background;
-    color: $white;
-    border: 2px solid $background;
+    color: $off-black;
+    border: 2px solid $black;
     position: relative;
     text-decoration: none;
     cursor: pointer;
 
     &:link,
     &:visited {
-      color: $white;
+      color: $off-black;
     }
 
     &:hover {
-      color: $light-blue-25;
+      background-color: $brand-navy-75;
+      border: 2px solid $brand-navy-75;
+      color: $white;
     }
 
     &:active,
@@ -64,11 +66,12 @@
   }
 
   &-item--selected {
-    background: inherit;
+    background: $brand-yellow;
     border: 2px solid $black;
     outline: 1px solid rgba($white, 0.1);
     position: relative;
     z-index: 10;
+    color: $off-black;
 
     &:link,
     &:visited {
@@ -76,23 +79,25 @@
     }
 
     &:hover {
-      color: govuk-tint($govuk-text-colour, 25%);
+      color: $white;
+      background-color: $brand-navy;
     }
 
     &:active,
     &:focus {
       z-index: 1000;
-      color: $govuk-focus-text-colour;
-      border: solid 2px $black;
-      padding: 10px 0px; /* reset padding to default */
-      box-shadow: inset 0 -2px $govuk-focus-text-colour; /* remove bottom border from underline */
+      color: $off-black;
+      border-color: $off-black;
+      background: $govuk-focus-colour;
+      /* override default focus style to inset bottom underline */
+      box-shadow: 0 4px 0 $govuk-focus-text-colour;
     }
 
   }
 
   &-item__label {
 
-    text-decoration: underline;
+    text-decoration: none;
     // reduce padding until screen is above 420px / zoomed below 300%
     padding-left: govuk-spacing(1);
 
@@ -127,22 +132,26 @@
 
     &:link,
     &:visited {
-      background: $link-colour;
+      background: $brand-navy;
+      border: 2px solid $brand-navy;
       color: $white;
-      text-decoration: underline;
+      text-decoration: none;
     }
 
     &:hover {
-      color: $light-blue-25;
+      background-color: $brand-green;
+      border: 2px solid $brand-navy;
+      color: $off-black;
     }
 
     &:focus,
+    &:active,
     &:link:focus {
-      color: $govuk-focus-text-colour;
+      color: $black;
       text-decoration: none;
       background: $govuk-focus-colour;
       /* override default focus style to inset bottom underline */
-      box-shadow: inset 0 -4px $govuk-focus-text-colour;
+      box-shadow: 0 4px 0 $govuk-focus-text-colour;
     }
 
   }

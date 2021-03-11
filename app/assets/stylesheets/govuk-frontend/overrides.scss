@@ -52,3 +52,140 @@
   // $class parameter is deprecated but needed for v2 of GOVUK Frontend. Remove for v3 & above
   @include govuk-grid-column(full, $class: false);
 }
+
+.govuk-button {
+  
+  &,
+  &:link,
+  &:visited {
+    background: $brand-navy !important;
+    color: $white !important;
+    box-shadow: 0 2px 0 $brand-navy !important;
+  }
+
+  &:hover {
+    background: $brand-green !important;
+    color: $off-black !important;
+    box-shadow: 0 2px 0 $brand-navy !important;
+  }
+
+  &:active,
+  &:focus {
+    background: $govuk-focus-colour !important;
+    color: $govuk-focus-text-colour !important;
+  }
+}
+
+.govuk-button--secondary {
+  &,
+  &:link,
+  &:visited {
+    background: $brand-navy-10 !important;
+    color: $off-black !important;
+  }
+
+  &:hover {
+    background: $brand-navy !important;
+    color: $white !important;
+  }
+
+  &:active,
+  &:focus {
+    background: $govuk-focus-colour !important;
+    color: $govuk-focus-text-colour !important;
+  }
+}
+
+.govuk-header {
+  background: $brand-navy-10 !important;
+  color: $brand-navy !important;
+}
+
+.govuk-header__container {
+  border-bottom-color: $brand-navy !important;
+}
+
+.govuk-header__link:link, 
+.govuk-header__link:visited,
+.govuk-header__menu-button {
+  color: $brand-navy !important;
+}
+
+
+.govuk-footer {
+  background-color: $brand-yellow !important;
+  border: 1px solid $brand-navy-75 !important;
+  color: $brand-navy !important;
+
+
+  .govuk-footer__section-break {
+    border-bottom: 1px solid $brand-navy-75 !important;
+
+    &:focus {
+      border-bottom: none !important;
+    }
+  }
+
+  .govuk-footer__link {
+    color: $brand-navy-75 !important;
+  }
+
+  .govuk-footer__heading {
+    border-bottom: 1px solid $brand-navy-75;
+  }
+}
+
+
+.govuk-heading-m {
+  color: $brand-navy !important;
+}
+
+
+.product-page-intro {
+  background-color: $brand-yellow !important;
+  color: $brand-navy !important;
+
+  p, a {
+    color: $brand-navy-75 !important;
+  }
+}
+
+
+.product-page-section {
+  color: $brand-navy !important;
+}
+
+
+.govuk-body {
+  color: $brand-navy !important;
+}
+
+.breadcrumbs--inverse {
+  border-bottom-color: $brand-navy !important;
+}
+
+.panel {
+  border-color: $brand-green !important;
+}
+
+.sms-message-wrapper {
+  background: $brand-light-turquoise !important;
+  border-color: $brand-light-turquoise !important;
+
+  &:after {
+    border-bottom-color: $brand-light-turquoise !important;
+    border-left-color: $brand-light-turquoise !important;
+  }
+}
+
+.show-more,
+.show-more span,
+.show-more-no-border span {
+
+  border-color: $brand-navy-75 !important;
+
+  &:focus,
+  &:active {
+    border: none !important;
+  }
+}
