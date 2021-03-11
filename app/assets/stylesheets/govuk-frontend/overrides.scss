@@ -97,12 +97,17 @@
 }
 
 .govuk-header {
-  background: $brand-navy-10 !important;
+  background: white !important;
   color: $brand-navy !important;
+
+  .govuk-header__navigation--end {
+    padding: 15px 0 !important;
+  }
 }
 
 .govuk-header__container {
-  border-bottom-color: $brand-navy !important;
+  // border-bottom-color: $brand-navy-10 !important;
+  border-bottom: $brand-navy-10 1px solid !important;
 }
 
 .govuk-header__link:link, 
@@ -194,4 +199,59 @@
 .govuk-footer__licence-logo,
 .govuk-footer__licence-description {
   display: none !important;
+}
+
+
+.phase-banner {
+  margin-top: 20px;
+  margin-bottom: 20px;
+
+  a {
+    color: $brand-navy !important;
+  }
+
+  .phase-notice {
+    position: relative;
+    top: 1px;
+    left: 6px;
+  }
+}
+
+.phase-label {
+  line-height: 24px;
+  height: 24px;
+  border-radius: 12px;
+  display: inline-block;
+  padding: 0 16px;
+  text-align: center;
+
+  &.is-alpha {
+    color: $alpha-label-text;
+    background-color: $alpha-label-bg;
+  }
+
+  &.is-beta {
+    color: $beta-label-text;
+    background-color: $beta-label-bg;
+  }
+
+  &.is-discovery {
+    color: $discovery-label-text;
+    background-color: $discovery-label-bg;
+  }
+
+  &.is-idea {
+    background-color: $idea-label-bg;
+    border: 1px solid $discovery-label-bg;
+  }
+  
+  &.is-live {
+    color: $live-label-text;
+    background-color: $live-label-bg;
+  }
+
+  &.is-scoping {
+    background-color: $scoping-label-bg;
+    border: 1px solid $discovery-label-bg;
+  }
 }
