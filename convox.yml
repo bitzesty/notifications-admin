@@ -1,0 +1,21 @@
+environment:
+  - NOTIFY_APP_NAME=admin
+  - NOTIFY_ENVIRONMENT
+  - ADMIN_CLIENT_SECRET
+  - ADMIN_BASE_URL
+  - API_HOST_NAME
+  - DANGEROUS_SALT
+  - SECRET_KEY
+  - ROUTE_SECRET_KEY_1
+  - AWS_REGION
+  - AWS_ACCESS_KEY_ID
+  - AWS_SECRET_ACCESS_KEY
+  - SENTRY_DSN
+  - NOTIFY_LOG_PATH=application.log
+services:
+  web:
+    command: 'gunicorn -c gunicorn_config.py application'
+    domain: ${DOMAIN}
+    port: 6012
+    scale:
+      memory: 1024
