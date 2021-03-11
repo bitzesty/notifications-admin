@@ -189,3 +189,9 @@
     border: none !important;
   }
 }
+
+.govuk-footer__copyright-logo,
+.govuk-footer__licence-logo,
+.govuk-footer__licence-description {
+  display: none !important;
+}

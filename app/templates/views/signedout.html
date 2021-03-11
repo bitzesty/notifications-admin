@@ -2,11 +2,11 @@
 {% from "components/button/macro.njk" import govukButton %}
 
 {% block meta %}
-  <meta name="description" content="GOV.UK Notify lets you send emails, text messages and letters to your users. Try it now if you work in central government, a local authority, or the NHS.">
+  <meta name="description" content="Catalyst Notify lets you send emails, text messages and letters to your users. Try it now if you work in central government, a local authority, or the NHS.">
 {% endblock %}
 
 {% block pageTitle %}
-  GOV.UK Notify
+  Catalyst Notify
 {% endblock %}
 
 {% block content %}
@@ -16,7 +16,7 @@
       <nav class="breadcrumbs breadcrumbs--inverse" aria-label="Breadcrumbs">
        <ol itemscope itemtype="http://schema.org/BreadcrumbList">
          <li class="breadcrumbs__item" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-           <a class="govuk-link govuk-link--no-visited-state" href="https://www.gov.uk/service-toolkit#gov-uk-services" itemprop="item"><span itemprop="name">Catalyst</span></a>
+           <a class="govuk-link govuk-link--no-visited-state" href="https://www.thecatalyst.org.uk/" itemprop="item"><span itemprop="name">Catalyst</span></a>
          </li>
          <li class="breadcrumbs__item breadcrumbs__item--active" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
            <a class="govuk-link govuk-link--no-visited-state" href="#main" itemprop="item"><span itemprop="name">
@@ -30,7 +30,7 @@
             Send emails, text messages and letters to your users
           </h1>
           <p class="govuk-body">
-            Try GOV.UK Notify now if you work in central government, a&nbsp;local authority, or the NHS.
+            Try Catalyst Notify now if you work in central government, a&nbsp;local authority, or the NHS.
           </p>
           <div class="button-container">
             {{ govukButton({
@@ -59,7 +59,6 @@
         </p>
       </div>
       <div class="govuk-grid-column-one-half">
-        <img src="{{ asset_url('images/product/01-templates.svg') }}" alt="">
       </div>
     </div>
   </div>
@@ -75,10 +74,6 @@
         </p>
       </div>
       <div class="govuk-grid-column-one-half">
-        <img
-          src="{{ asset_url('images/product/02-reporting.svg') }}"
-          alt="A screenshot of GOV.UK Notify showing counts of emails and text messages sent"
-        >
       </div>
     </div>
   </div>
@@ -92,36 +87,18 @@
           Upload a spreadsheet of email&nbsp;addresses or
           phone&nbsp;numbers and Notify sends the messages.
         </p>
-        <img
-          src="{{ asset_url('images/product/03-spreadsheet.svg') }}"
-          alt="A screenshot of a spreadsheet with columns for email address, name and colour"
-        >
       </div>
       <div class="govuk-grid-column-one-half">
         <p class="govuk-body">
-          Integrate the GOV.UK Notify API with your web&nbsp;application or
+          Integrate the Catalyst Notify API with your web&nbsp;application or
           back office system.
         </p>
-        <img
-          src="{{ asset_url('images/product/04-api.svg') }}"
-          alt="A screenshot of some computer code with a notify.send_email function"
-        >
-      </div>
-    </div>
-  </div>
-  <div class="product-page-section">
-    <h2 class="with-keyline">
-      Introducing GOV.UK Notify
-    </h2>
-    <div class="responsive-embed responsive-embed--16by9 responsive-embed--bordered bottom-gutter-2">
-      <div class="responsive-embed__wrapper">
-        <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/_90cv1YgQo4" frameborder="0" allowfullscreen></iframe>
       </div>
     </div>
   </div>
   <div class="product-page-section">
     <div class="with-keyline bottom-gutter-2" id="whos-using-notify">
-      <h2>Who’s using GOV.UK Notify</h2>
+      <h2>Who’s using Catalyst Notify</h2>
       <div class="govuk-grid-row bottom-gutter">
         <div class="govuk-grid-column-one-half">
           <h3 class="govuk-visually-hidden">Services</h3>
@@ -134,10 +111,6 @@
           organisations
         </div>
       </div>
-      <p class="govuk-body">
-        See the
-        <a class="govuk-link govuk-link--no-visited-state" href="https://www.gov.uk/performance/govuk-notify/government-services">list of services and organisations</a>.
-      </p>
     </div>
   </div>
   <div class="product-page-section">
@@ -164,32 +137,9 @@
           <p class="align-with-big-number-hint">
             There’s no monthly charge, no setup fee and no&nbsp;procurement process.
           </p>
-          <p class="govuk-body">Find out more about <a class="govuk-link govuk-link--no-visited-state" href="https://www.notifications.service.gov.uk/pricing">pricing</a>.
+          <p class="govuk-body">Find out more about <a class="govuk-link govuk-link--no-visited-state" href="/pricing">pricing</a>.
           </p>
         </div>
-      </div>
-    </div>
-  </div>
-  <div class="product-page-section">
-    <div class="govuk-grid-row">
-      <div class="govuk-grid-column-one-half">
-        <h2 class="with-keyline">
-          The team
-        </h2>
-        <p class="govuk-body">
-          GOV.UK Notify is built by the Government Digital Service
-          and is supported 24 hours a day, 7 days a week.
-        </p>
-        <p class="govuk-body">
-          <a class="govuk-link govuk-link--no-visited-state" href="{{ url_for('main.support') }}">Contact us</a> if you have a question or want
-          to give feedback.
-        </p>
-      </div>
-      <div class="govuk-grid-column-one-half">
-        <img
-          src="{{ asset_url('images/product/team.jpg') }}"
-          alt="A photo of the GOV.UK Notify team gathered around a big screen. One team member is pointing at a graph on the screen."
-        >
       </div>
     </div>
   </div>
