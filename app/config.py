@@ -41,6 +41,8 @@ class Config(object):
         'emergency_service': 25000,
         'school_or_college': 25000,
         'other': 25000,
+        'charity': 25000,
+        'community_interest': 25000
     }
     EMAIL_EXPIRY_SECONDS = 3600  # 1 hour
     INVITATION_EXPIRY_SECONDS = 3600 * 24 * 2  # 2 days - also set on api
