@@ -1,5 +1,7 @@
-from flask import current_app, jsonify, request
+from flask import jsonify
+
 from app.status import status
+
 
 @status.route('/_status', methods=['GET'])
 def show_status():
