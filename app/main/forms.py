@@ -591,12 +591,11 @@ class RegisterUserForm(StripWhitespaceForm):
         'Full name',
         validators=[DataRequired(message='Cannot be empty')]
     )
-    email_address = email_address()
+    email_address = email_address(gov_user=False)
     mobile_number = international_phone_number()
     password = password()
     # always register as sms type
     auth_type = HiddenField('auth_type', default='sms_auth')
-
 
 class RegisterUserFromInviteForm(RegisterUserForm):
     def __init__(self, invited_user):
@@ -1211,6 +1210,10 @@ class CreateServiceForm(StripWhitespaceForm):
             Length(max=255, message='Service name must be 255 characters or fewer')
         ])
     organisation_type = OrganisationTypeField('Who runs this service?')
+    service_description = GovukTextInputField(
+        'What type of work do you do?',
+        validators=[DataRequired(message='Cannot be empty')]
+    )
 
 
 class CreateNhsServiceForm(CreateServiceForm):
