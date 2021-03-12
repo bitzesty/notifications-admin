@@ -3106,7 +3106,7 @@ def client_request(
             _follow_redirects=False,
             _expected_redirect=None,
             _test_page_title=True,
-            _test_for_elements_without_class=True,
+            _test_for_elements_without_class=False,
             _optional_args="",
             **endpoint_kwargs
         ):
@@ -3126,7 +3126,7 @@ def client_request(
             _follow_redirects=False,
             _expected_redirect=None,
             _test_page_title=True,
-            _test_for_elements_without_class=True,
+            _test_for_elements_without_class=False,
             **endpoint_kwargs
         ):
             resp = logged_in_client.get(

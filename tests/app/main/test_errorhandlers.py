@@ -10,7 +10,7 @@ def test_bad_url_returns_page_not_found(client):
     assert response.status_code == 404
     page = BeautifulSoup(response.data.decode('utf-8'), 'html.parser')
     assert page.h1.string.strip() == 'Page not found'
-    assert page.title.string.strip() == 'Page not found – GOV.UK Notify'
+    assert page.title.string.strip() == 'Page not found – Catalyst Notify'
 
 
 def test_load_service_before_request_handles_404(client_request, mocker):
@@ -39,7 +39,7 @@ def test_malformed_token_returns_page_not_found(logged_in_client, url):
     assert page.h1.string.strip() == 'Page not found'
     flash_banner = page.find('div', class_='banner-dangerous').string.strip()
     assert flash_banner == "There’s something wrong with the link you’ve used."
-    assert page.title.string.strip() == 'Page not found – GOV.UK Notify'
+    assert page.title.string.strip() == 'Page not found – Catalyst Notify'
 
 
 def test_csrf_returns_400(logged_in_client, mocker):
@@ -52,7 +52,7 @@ def test_csrf_returns_400(logged_in_client, mocker):
     assert response.status_code == 400
     page = BeautifulSoup(response.data.decode('utf-8'), 'html.parser')
     assert page.h1.string.strip() == 'Sorry, there’s a problem with GOV.UK Notify'
-    assert page.title.string.strip() == 'Sorry, there’s a problem with the service – GOV.UK Notify'
+    assert page.title.string.strip() == 'Sorry, there’s a problem with the service – Catalyst Notify'
 
 
 def test_csrf_redirects_to_sign_in_page_if_not_signed_in(client, mocker):
@@ -70,5 +70,5 @@ def test_405_returns_something_went_wrong_page(client, mocker):
 
     assert response.status_code == 405
     page = BeautifulSoup(response.data.decode('utf-8'), 'html.parser')
-    assert page.h1.string.strip() == 'Sorry, there’s a problem with GOV.UK Notify'
-    assert page.title.string.strip() == 'Sorry, there’s a problem with the service – GOV.UK Notify'
+    assert page.h1.string.strip() == 'Sorry, there’s a problem with Catalyst Notify'
+    assert page.title.string.strip() == 'Sorry, there’s a problem with the service – Catalyst Notify'

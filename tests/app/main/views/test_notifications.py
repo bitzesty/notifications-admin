@@ -274,9 +274,11 @@ def test_notification_page_shows_page_for_letter_notification(
 
     assert len(letter_images) == count_of_pages
     for index in range(count_of_pages):
-        assert page.select('img')[index]['src'].endswith(
-            '.png?page={}'.format(index + 1)
-        )
+        image_src = page.select('img')[index]['src']
+        if "catalyst_logo.svg" in image_src:
+            continue
+        else:
+            assert page.select('img')[index]['src'].endswith('.png?page={}'.format(index))
 
     assert len(mock_page_count.call_args_list) == 1
     assert mock_page_count.call_args_list[0][0][0]['name'] == 'sample template'
