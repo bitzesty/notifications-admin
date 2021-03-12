@@ -215,7 +215,8 @@ def format_notification_status(status, template_type):
             'sending': 'Sending',
             'created': 'Sending',
             'pending': 'Sending',
-            'sent': 'Sent to an international number'
+            'sent': 'Sent',
+            'undelivered': 'Undeliverable'
         },
         'letter': {
             'failed': '',
