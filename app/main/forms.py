@@ -591,7 +591,7 @@ class RegisterUserForm(StripWhitespaceForm):
         'Full name',
         validators=[DataRequired(message='Cannot be empty')]
     )
-    email_address = email_address()
+    email_address = email_address(gov_user=False)
     mobile_number = international_phone_number()
     password = password()
     # always register as sms type
