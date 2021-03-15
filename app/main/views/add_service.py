@@ -9,12 +9,13 @@ from app.main.forms import CreateNhsServiceForm, CreateServiceForm
 from app.utils import user_is_logged_in
 
 
-def _create_service(service_name, organisation_type, email_from, form):
+def _create_service(service_name, service_description, organisation_type, email_from, form):
     free_sms_fragment_limit = current_app.config['DEFAULT_FREE_SMS_FRAGMENT_LIMITS'].get(organisation_type)
 
     try:
         service_id = service_api_client.create_service(
             service_name=service_name,
+            service_description=service_description,
             organisation_type=organisation_type,
             message_limit=current_app.config['DEFAULT_SERVICE_LIMIT'],
             restricted=True,
@@ -60,9 +61,11 @@ def add_service():
     if form.validate_on_submit():
         email_from = email_safe(form.name.data)
         service_name = form.name.data
+        service_description = form.service_description.data
 
         service_id, error = _create_service(
             service_name,
+            service_description,
             default_organisation_type or form.organisation_type.data,
             email_from,
             form,

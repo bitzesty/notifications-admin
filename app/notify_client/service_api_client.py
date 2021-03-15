@@ -13,6 +13,7 @@ class ServiceAPIClient(NotifyAdminAPIClient):
     def create_service(
         self,
         service_name,
+        service_description,
         organisation_type,
         message_limit,
         restricted,
@@ -24,6 +25,7 @@ class ServiceAPIClient(NotifyAdminAPIClient):
         """
         data = {
             "name": service_name,
+            "description": service_description,
             "organisation_type": organisation_type,
             "active": True,
             "message_limit": message_limit,
