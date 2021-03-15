@@ -597,6 +597,7 @@ class RegisterUserForm(StripWhitespaceForm):
     # always register as sms type
     auth_type = HiddenField('auth_type', default='sms_auth')
 
+
 class RegisterUserFromInviteForm(RegisterUserForm):
     def __init__(self, invited_user):
         super().__init__(
