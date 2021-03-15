@@ -20,3 +20,37 @@ jobs:
         pip3 install -r requirements_for_test.txt
         npm install && npm run build
         make test
+  deploy_staging:
+    needs: [test]
+    if: github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+    strategy:
+      max-parallel: 1
+    steps:
+      - uses: actions/checkout@v2
+      - name: "Deploy staging"
+        env:
+          CONVOX_PASSWORD: ${{ secrets.CONVOX_PASSWORD }}
+        run: |
+          curl -L https://github.com/convox/convox/releases/latest/download/convox-linux -o /tmp/convox
+          sudo mv /tmp/convox /usr/local/bin/convox
+          chmod 755 /usr/local/bin/convox
+          convox -v
+          env CONVOX_HOST="console.convox.com" CONVOX_PASSWORD="$CONVOX_PASSWORD" convox deploy --app notifications-admin-staging --rack bitzesty/castnotify --wait
+  deploy_production:
+    needs: [test]
+    if: github.ref == 'refs/heads/production'
+    runs-on: ubuntu-latest
+    strategy:
+      max-parallel: 1
+    steps:
+      - uses: actions/checkout@v2
+      - name: "Deploy production"
+        env:
+          CONVOX_PASSWORD: ${{ secrets.CONVOX_PASSWORD }}
+        run: |
+          curl -L https://github.com/convox/convox/releases/latest/download/convox-linux -o /tmp/convox
+          sudo mv /tmp/convox /usr/local/bin/convox
+          chmod 755 /usr/local/bin/convox
+          convox -v
+          env CONVOX_HOST="console.convox.com" CONVOX_PASSWORD="$CONVOX_PASSWORD" convox deploy --app notifications-admin-production --rack bitzesty/castnotify --wait
