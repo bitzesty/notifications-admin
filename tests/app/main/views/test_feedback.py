@@ -365,7 +365,7 @@ def test_redirects_to_triage(
 
 @pytest.mark.parametrize('ticket_type, expected_h1', (
     (PROBLEM_TICKET_TYPE, 'Report a problem'),
-    (GENERAL_TICKET_TYPE, 'Contact GOV.UK Notify support'),
+    (GENERAL_TICKET_TYPE, 'Contact Catalyst Notify support'),
 ))
 def test_options_on_triage_page(
     client_request,
