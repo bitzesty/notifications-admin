@@ -171,10 +171,8 @@ def estimate_usage(service_id):
 
     if form.validate_on_submit():
         current_service.update(
-            volume_email=form.volume_email.data,
             volume_sms=form.volume_sms.data,
-            volume_letter=form.volume_letter.data,
-            consent_to_research=(form.consent_to_research.data == 'yes'),
+            consent_to_research=False,
         )
         return redirect(url_for(
             'main.request_to_go_live',

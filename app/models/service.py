@@ -444,7 +444,6 @@ class Service(JSONModel):
             bool(self.volumes),
             self.has_team_members,
             self.has_templates,
-            not self.needs_to_add_email_reply_to_address,
             not self.needs_to_change_sms_sender,
         ))
 

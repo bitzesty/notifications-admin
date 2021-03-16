@@ -1560,39 +1560,16 @@ class Triage(StripWhitespaceForm):
 
 class EstimateUsageForm(StripWhitespaceForm):
 
-    volume_email = ForgivingIntegerField(
-        'How many emails do you expect to send in the next year?',
-        things='emails',
-        format_error_suffix='you expect to send',
-    )
     volume_sms = ForgivingIntegerField(
         'How many text messages do you expect to send in the next year?',
         things='text messages',
         format_error_suffix='you expect to send',
     )
-    volume_letter = ForgivingIntegerField(
-        'How many letters do you expect to send in the next year?',
-        things='letters',
-        format_error_suffix='you expect to send',
-    )
-    consent_to_research = GovukRadiosField(
-        'Can we contact you when we’re doing user research?',
-        choices=[
-            ('yes', 'Yes'),
-            ('no', 'No'),
-        ],
-        thing='yes or no',
-        param_extensions={
-            'hint': {'text': 'You do not have to take part and you can unsubscribe at any time'}
-        }
-    )
 
     at_least_one_volume_filled = True
 
     def validate(self, *args, **kwargs):
-
-        if self.volume_email.data == self.volume_sms.data == self.volume_letter.data == 0:
-            self.at_least_one_volume_filled = False
+        if self.volume_sms.data == 0:
             return False
 
         return super().validate(*args, **kwargs)
