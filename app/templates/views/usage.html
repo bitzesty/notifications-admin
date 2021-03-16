@@ -19,13 +19,6 @@
     <div id='pill-selected-item'>
       <div class='govuk-grid-row'>
         <div class='govuk-grid-column-one-third'>
-          <h2 class='heading-small'>Emails</h2>
-          <div class="keyline-block">
-            {{ big_number(emails_sent, 'sent', smaller=True) }}
-            {{ big_number("Unlimited", 'free allowance', smaller=True) }}
-          </div>
-        </div>
-        <div class='govuk-grid-column-one-third'>
           <h2 class='heading-small'>Text messages</h2>
           <div class="keyline-block">
             {{ big_number(sms_sent, 'sent', smaller=True) }}
@@ -40,20 +33,9 @@
             {% endif %}
           </div>
         </div>
-        <div class='govuk-grid-column-one-third'>
-          <h2 class='heading-small'>Letters</h2>
-          <div class="keyline-block">
-            {{ big_number(letter_sent, 'sent', smaller=True) }}
-          </div>
-        </div>
       </div>
 
       <div class='govuk-grid-row'>
-        <div class='govuk-grid-column-one-third'>
-          <div class="keyline-block">
-            &nbsp;
-          </div>
-        </div>
         <div class='govuk-grid-column-one-third'>
           <div class="keyline-block">
             {{ big_number(
@@ -62,16 +44,6 @@
               currency="£",
               smaller=True
             ) }}
-          </div>
-        </div>
-        <div class='govuk-grid-column-one-third'>
-          <div class="keyline-block">
-            {{ big_number(
-                letter_cost,
-                'spent',
-                currency="£",
-                smaller=True
-              ) }}
           </div>
         </div>
 
@@ -107,15 +79,7 @@
                 <li class="tabular-numbers">{{ month.paid|message_count('sms') }} at
                 {{- ' {:.2f}p'.format(sms_rate * 100) }}</li>
               {% endif %}
-              {% for letter in month.letters%}
-                {% if letter.billing_units %}
-                  <li class="tabular-numbers">{{ "{:,} {}".format(letter.billing_units, letter.postage_description) }} {{ letter.billing_units|message_count_label('letter', suffix='') }} at
-                  {{ letter.rate | format_number_in_pounds_as_currency }}</li>
-                {% endif %}
-              {% endfor %}
-              {% if not (month.free or month.paid or month.letters) %}
-                <li aria-hidden="true">–</li>
-              {% endif %}
+              
               </ul>
             {% endcall %}
           {% endcall %}

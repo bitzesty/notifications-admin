@@ -2,9 +2,9 @@ options:
   merge-default-rules: true
 
 rules:
-  extends-before-mixins: 2
-  extends-before-declarations: 2
-  placeholder-in-extend: 2
+  extends-before-mixins: 1
+  extends-before-declarations: 1
+  placeholder-in-extend: 1
   mixins-before-declarations:
     - 2
     -
@@ -13,14 +13,14 @@ rules:
         - ie-lte
   no-warn: 1
   no-debug: 1
-  no-ids: 1
-  no-important: 2
+  no-ids: 0
+  no-important: 0
   hex-notation:
-    - 2
+    - 1
     -
       style: uppercase
   indentation:
-    - 2
+    - 1
     -
       size: 2
   leading-zero: 0

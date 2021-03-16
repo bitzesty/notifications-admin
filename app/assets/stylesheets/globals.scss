@@ -2,17 +2,17 @@
 
 
 // whites, blacks & greys
-$white: #fff;
-$off-white: #f5f5f5;
+$white: #FFF;
+$off-white: #F5F5F5;
 $off-black: #121212;
-$brand-navy: #0a0039;
+$brand-navy: #0A0039;
 $mid-grey: #9A9A9A;
 
 // brand colours
-$brand-red: #ff5c5c;
-$brand-pink: #ee7abb;
-$brand-turquoise: #22cae1;
-$brand-yellow: #ffe8b4;
+$brand-red: #FF5C5C;
+$brand-pink: #EE7ABB;
+$brand-turquoise: #22CAE1;
+$brand-yellow: #FFE8B4;
 $brand-green: #09CA77;
 $brand-navy-5: rgba($brand-navy, 0.05);
 $brand-navy-10: #E6E5EB;
@@ -110,7 +110,7 @@ $govuk-font-family-print: 'Poppins', sans-serif;
 body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: $off-black;
+  color: $brand-navy;
   font-family: 'Poppins', sans-serif !important;
 }
 

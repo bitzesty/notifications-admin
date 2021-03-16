@@ -1,4 +1,7 @@
+import Catalyst from "./modules/all.mjs";
+
 window.GOVUK.Frontend.initAll();
+Catalyst.Frontend.initAll();
 
 var consentData = window.GOVUK.getConsentCookie();
 window.GOVUK.Modules.CookieBanner.clearOldCookies(consentData);

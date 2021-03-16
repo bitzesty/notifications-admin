@@ -28,9 +28,6 @@
 
   <p class="govuk-body">When you add a new service it will start in <a class="govuk-link govuk-link--no-visited-state" href="{{ url_for('main.trial_mode_new') }}">trial mode</a>.</p>
 
-  <h2 class="heading-medium" id="emails">Emails</h2>
-  <p class="govuk-body">It’s free to send emails through Notify.</p>
-
   <h2 class="heading-medium" id="text-messages">Text messages</h2>
   <p class="govuk-body">Every service you add has an annual allowance of free text messages.</p>
   <p class="govuk-body">If your organisation has more than one service on Notify, they each have a separate allowance.</p>
@@ -194,33 +191,6 @@
     "summaryText": "International text message rates",
     "html": smsIntRates
   }) }}
-
-  <h2 class="heading-medium" id="letters">Letters</h2>
-  <p class="govuk-body">The cost of sending a letter depends on the postage you choose and how many sheets of paper you need.</p>
-
-  <div>
-    {% call mapping_table(
-      caption='Letter pricing',
-      field_headings=['Paper', 'Second class', 'First class', 'International'],
-      field_headings_visible=True,
-      caption_visible=False
-    ) %}
-      {% for sheets, second, first, international in [
-        ('1 sheet', '39p', '69p', '89p'),
-        ('2 sheets', '44p', '74p', '97p'),
-        ('3 sheets', '49p', '79p', '£1.05'),
-        ('4 sheets', '54p', '84p', '£1.13'),
-        ('5 sheets', '59p', '89p', '£1.21'),
-      ] %}
-        {% call row() %}
-          {% call row_heading() %} {{ sheets }} {% endcall %}
-          {{ text_field(second + ' + VAT') }}
-          {{ text_field(first + ' + VAT') }}
-          {{ text_field(international + ' + VAT') }}
-        {% endcall %}
-      {% endfor %}
-    {% endcall %}
-  </div>
 
   <div class="panel panel-border-wide">  
     <p class="govuk-body">These prices were updated on 1 February 2021.</p>
