@@ -46,6 +46,7 @@ function initAll (options) {
 
   // Find first header module to enhance.
   var $toggleButton = scope.querySelector('[data-module="header"]')
+  
   new Header($toggleButton).init()
 
   var $radios = scope.querySelectorAll('[data-module="radios"]')

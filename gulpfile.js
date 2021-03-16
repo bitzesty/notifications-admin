@@ -234,11 +234,11 @@ const images = () => {
 
 const watchFiles = {
   javascripts: (cb) => {
-    watch([paths.src + 'javascripts/**/*'], javascripts);
+    watch([paths.src + 'javascripts/**/*'], series(javascripts, lint.js));
     cb();
   },
   sass: (cb) => {
-    watch([paths.src + 'stylesheets/**/*'], sass);
+    watch([paths.src + 'stylesheets/**/*'], series(sass, lint.sass));
     cb();
   },
   images: (cb) => {
@@ -260,8 +260,13 @@ const lint = {
         paths.src + 'stylesheets/views/*.scss',
       ])
       .pipe(plugins.sassLint({
-        'options': { 'formatter': 'stylish' },
-        'rules': { 'mixins-before-declarations': [2, { 'exclude': ['media', 'govuk-media-query'] } ] }
+        'options': { 
+          'formatter': 'stylish',
+
+        },
+        'rules': { 
+          'mixins-before-declarations': [2, { 'exclude': ['media', 'govuk-media-query'] } ],
+        }
       }))
       .pipe(plugins.sassLint.format())
       .pipe(plugins.sassLint.failOnError());
