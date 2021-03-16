@@ -31,13 +31,6 @@
           'Add templates with examples of the content you plan to send',
           url_for('main.choose_template', service_id=current_service.id),
         ) }}
-        {% if current_service.intending_to_send_email %}
-          {{ task_list_item(
-            current_service.has_email_reply_to_address,
-            'Add a reply-to email address',
-            url_for('main.service_email_reply_to', service_id=current_service.id),
-          ) }}
-        {% endif %}
         {% if (
           current_service.intending_to_send_sms
           and current_service.shouldnt_use_govuk_as_sms_sender
@@ -56,11 +49,7 @@
           ) }}
         {% endif %}
       {% endcall %}
-      {% if not current_user.is_gov_user %}
-        <p class="govuk-body">
-          Only team members with a government email address can request to go live.
-        </p>
-      {% elif (not current_service.go_live_checklist_completed) or (current_service.able_to_accept_agreement and not current_service.organisation.agreement_signed) %}
+      {% if (not current_service.go_live_checklist_completed) or (current_service.able_to_accept_agreement and not current_service.organisation.agreement_signed) %}
         <p class="govuk-body">
           You must complete these steps before you can request to go live.
         </p>

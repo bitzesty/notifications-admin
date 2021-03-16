@@ -171,10 +171,8 @@ def estimate_usage(service_id):
 
     if form.validate_on_submit():
         current_service.update(
-            volume_email=form.volume_email.data,
             volume_sms=form.volume_sms.data,
-            volume_letter=form.volume_letter.data,
-            consent_to_research=(form.consent_to_research.data == 'yes'),
+            consent_to_research=False,
         )
         return redirect(url_for(
             'main.request_to_go_live',
@@ -200,51 +198,7 @@ def request_to_go_live(service_id):
 
 @main.route("/services/<uuid:service_id>/service-settings/request-to-go-live", methods=['POST'])
 @user_has_permissions('manage_service')
-@user_is_gov_user
 def submit_request_to_go_live(service_id):
-
-    zendesk_client.create_ticket(
-        subject='Request to go live - {}'.format(current_service.name),
-        message=(
-            'Service: {service_name}\n'
-            '{service_dashboard}\n'
-            '\n---'
-            '\nOrganisation type: {organisation_type}'
-            '\nAgreement signed: {agreement}'
-            '\n'
-            '\nEmails in next year: {volume_email_formatted}'
-            '\nText messages in next year: {volume_sms_formatted}'
-            '\nLetters in next year: {volume_letter_formatted}'
-            '\n'
-            '\nConsent to research: {research_consent}'
-            '\nOther live services: {existing_live}'
-            '\n'
-            '\nService reply-to address: {email_reply_to}'
-            '\n'
-            '\n---'
-            '\nRequest sent by {email_address}'
-            '\n'
-        ).format(
-            service_name=current_service.name,
-            service_dashboard=url_for('main.service_dashboard', service_id=current_service.id, _external=True),
-            organisation_type=str(current_service.organisation_type).title(),
-            agreement=current_service.organisation.as_agreement_statement_for_go_live_request(
-                current_user.email_domain
-            ),
-            volume_email_formatted=format_thousands(current_service.volume_email),
-            volume_sms_formatted=format_thousands(current_service.volume_sms),
-            volume_letter_formatted=format_thousands(current_service.volume_letter),
-            research_consent='Yes' if current_service.consent_to_research else 'No',
-            existing_live='Yes' if current_user.live_services else 'No',
-            email_address=current_user.email_address,
-            email_reply_to=current_service.default_email_reply_to_address or 'not set',
-        ),
-        ticket_type=zendesk_client.TYPE_QUESTION,
-        user_email=current_user.email_address,
-        user_name=current_user.name,
-        tags=current_service.request_to_go_live_tags,
-    )
-
     current_service.update(go_live_user=current_user.id)
 
     flash('Thanks for your request to go live. We’ll get back to you within one working day.', 'default')
