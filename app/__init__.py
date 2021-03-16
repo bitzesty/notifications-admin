@@ -354,10 +354,11 @@ def useful_headers_after_request(response):
     response.headers.add('X-XSS-Protection', '1; mode=block')
     response.headers.add('Content-Security-Policy', (
         "default-src 'self' {asset_domain} 'unsafe-inline';"
-        "script-src 'self' {asset_domain} *.google-analytics.com 'unsafe-inline' 'unsafe-eval' data:;"
+        "style-src 'self' {asset_domain} cdnjs.cloudflare.com fonts.googleapis.com 'unsafe-inline';"
+        "script-src 'self' {asset_domain} *.google-analytics.com cdnjs.cloudflare.com 'unsafe-inline' 'unsafe-eval' data:;"
         "connect-src 'self' *.google-analytics.com;"
         "object-src 'self';"
-        "font-src 'self' {asset_domain} data:;"
+        "font-src 'self' {asset_domain} fonts.gstatic.com data:;"
         "img-src 'self' {asset_domain} *.tile.openstreetmap.org *.google-analytics.com"
         " *.notifications.service.gov.uk {logo_domain} data:;"
         "frame-src 'self' www.youtube-nocookie.com;".format(

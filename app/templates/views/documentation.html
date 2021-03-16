@@ -23,8 +23,26 @@
     {% endfor %}
   </ul>
     <p class="govuk-body">A developer should be able to set up the API client and start sending test messages in around 30 minutes. A full integration can take a few days, depending on the other systems you’re using.</p>
+
+  <h2 class="heading-medium">Using the GOV UK Clients with Catalyst Notify</h2>
+  <p class="govuk-body">To use the GOV UK clients with Catalyst Notify, you'll need to supply the URL of the Catalyst API when instantiating the client.</p>
+  <p class="govuk-body">Here's an example of overriding the API URL in Ruby:</p>
+
+  <pre>
+    <code class="language-ruby">
+api_key = "test_key-4a2b347d-4ab7-4ff3-87c7-1b9407e75a62-eb1ebb7a-ff05-49a2-befc-56f25e606c8f"
+api_url = "api.notifications.thecatalyst.org.uk"
+client = Notifications::Client.new(api_key, api_url)
+    </code>
+  </pre>
+
+  <p class="govuk-body">For more information about setting the API URL for your client of choice, please see our <a href="https://github.com/bitzesty/notifications-api/blob/master/docs/setup-clients-to-work-with-catalyst-notify.md">documentation in GitHub</a>.</p>
+
   <h2 class="heading-medium">Integrate directly with the API</h2>
     <p class="govuk-body">If you cannot use the client libraries, you can integrate directly with the API instead.</p>
 <p class="govuk-body">Read the <a class="govuk-link govuk-link--no-visited-state" href="https://docs.notifications.service.gov.uk/rest-api.html" target="_blank" rel="noopener">REST API documentation</a> (this link opens in a new tab).</p>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/plugins/autoloader/prism-autoloader.min.js"></script>
 
 {% endblock %}
