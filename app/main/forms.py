@@ -1533,7 +1533,7 @@ class SupportRedirect(StripWhitespaceForm):
         'What do you need help with?',
         choices=[
             ('public-sector', 'I work in the charity sector and need to text messages '),
-            ('public', 'I’m a member of the public with a question for the government'),
+            ('public', 'I’m a member of the public with a question about the service'),
         ],
         param_extensions={
             "fieldset": {"legend": {"classes": "govuk-visually-hidden"}}
