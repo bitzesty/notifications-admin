@@ -198,7 +198,6 @@ def request_to_go_live(service_id):
 
 @main.route("/services/<uuid:service_id>/service-settings/request-to-go-live", methods=['POST'])
 @user_has_permissions('manage_service')
-@user_is_gov_user
 def submit_request_to_go_live(service_id):
 
     zendesk_client.create_ticket(
