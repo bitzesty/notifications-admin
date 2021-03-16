@@ -18,7 +18,7 @@
   <link rel="stylesheet" media="print" href="{{ asset_url('stylesheets/print.css') }}" />
   {% block extra_stylesheets %}
   {% endblock %}
- 
+
   {% if g.hide_from_search_engines %}
     <meta name="robots" content="noindex" />
   {% endif %}
@@ -165,7 +165,7 @@
           <div class="phase-banner">
             <span class="phase-label is-alpha">Alpha</span>
             <span class="phase-notice">This is a new service – your <a
-                href="https://airtable.com/shrcSFfRzVT0bucct?prefill_Recipe+Page=https://recipes.thecatalyst.org.uk/"
+                href="https://airtable.com/shrcSFfRzVT0bucct?prefill_Recipe+Page=https://notifications.thecatalyst.org.uk"
                 target="_blank" rel="noopener">feedback</a> will help us to improve it.</span>
           </div>
         </div>
@@ -194,7 +194,7 @@
 
   <footer class="govuk-footer js-footer" role="contentinfo">
     <div class="govuk-width-container ">
-      
+
       <a href="{{ url_for('main.show_accounts_or_dashboard') }}">
         <img src="/static/images/catalyst_logo_white.svg" alt="Catalyst" height="50px">
       </a>
@@ -209,200 +209,200 @@
           <img class="socialmedia-youtube" src="/static/images/youtube_logo.svg" alt="Youtube" height="50px">
         </a>
       </div>
-      
+
 
       <div class="govuk-footer__navigation">
-  
+
         <div class="govuk-footer__section">
           <h2 class="govuk-footer__heading govuk-heading-m">Support</h2>
-  
-  
+
+
           <ul class="govuk-footer__list govuk-footer__list--columns-1">
-  
-  
+
+
             <li class="govuk-footer__list-item">
               <a class="govuk-footer__link" href="{{url_for('main.support')}}">
                 Contact support
               </a>
             </li>
-  
-  
+
+
           </ul>
-  
+
         </div>
-  
+
         <div class="govuk-footer__section">
           <h2 class="govuk-footer__heading govuk-heading-m">About Notify</h2>
-  
-  
+
+
           <ul class="govuk-footer__list govuk-footer__list--columns-1">
-  
-  
+
+
             <li class="govuk-footer__list-item">
               <a class="govuk-footer__link" href="{{url_for('main.features')}}">
                 Features
               </a>
             </li>
-  
-  
-  
+
+
+
             <li class="govuk-footer__list-item">
               <a class="govuk-footer__link" href="{{url_for('main.roadmap')}}">
                 Roadmap
               </a>
             </li>
-  
-  
-  
+
+
+
             <li class="govuk-footer__list-item">
               <a class="govuk-footer__link" href="{{url_for('main.who_can_use_notify')}}">
                 Who can use Notify
               </a>
             </li>
-  
-  
-  
+
+
+
             <li class="govuk-footer__list-item">
               <a class="govuk-footer__link" href="{{url_for('main.security')}}">
                 Security
               </a>
             </li>
-  
-  
-  
+
+
+
             <li class="govuk-footer__list-item">
               <a class="govuk-footer__link" href="{{url_for('main.terms')}}">
                 Terms of use
               </a>
             </li>
-  
-  
-  
+
+
+
             <li class="govuk-footer__list-item">
               <a class="govuk-footer__link" href="https://www.thecatalyst.org.uk/blog">
                 Blog
               </a>
             </li>
-  
-  
+
+
           </ul>
-  
+
         </div>
-  
+
         <div class="govuk-footer__section">
           <h2 class="govuk-footer__heading govuk-heading-m">Pricing and payment</h2>
-  
-  
+
+
           <ul class="govuk-footer__list govuk-footer__list--columns-1">
-  
-  
+
+
             <li class="govuk-footer__list-item">
               <a class="govuk-footer__link" href="{{url_for('main.pricing')}}">
                 Pricing
               </a>
             </li>
-  
-  
-  
+
+
+
             <li class="govuk-footer__list-item">
               <a class="govuk-footer__link" href="{{url_for('main.how_to_pay')}}">
                 How to pay
               </a>
             </li>
-  
-  
+
+
           </ul>
-  
+
         </div>
-  
+
         <div class="govuk-footer__section">
           <h2 class="govuk-footer__heading govuk-heading-m">Using Notify</h2>
-  
-  
+
+
           <ul class="govuk-footer__list govuk-footer__list--columns-1">
-  
-  
+
+
             <li class="govuk-footer__list-item">
               <a class="govuk-footer__link" href="{{url_for('main.get_started')}}">
                 Get started
               </a>
             </li>
-  
-  
-  
+
+
+
             <li class="govuk-footer__list-item">
               <a class="govuk-footer__link" href="{{url_for('main.trial_mode_new')}}">
                 Trial mode
               </a>
             </li>
-  
-  
-  
+
+
+
             <li class="govuk-footer__list-item">
               <a class="govuk-footer__link" href="{{url_for('main.message_status')}}">
                 Delivery status
               </a>
             </li>
-  
-  
-  
+
+
+
             <li class="govuk-footer__list-item">
               <a class="govuk-footer__link" href="{{url_for('main.guidance_index')}}">
                 Guidance
               </a>
             </li>
-  
-  
-  
+
+
+
             <li class="govuk-footer__list-item">
               <a class="govuk-footer__link" href="{{url_for('main.documentation')}}">
                 API documentation
               </a>
             </li>
-  
-  
+
+
           </ul>
-  
+
         </div>
-  
+
       </div>
       <!-- <hr class="govuk-footer__section-break"> -->
-  
+
       <div class="govuk-footer__meta">
         <div class="govuk-footer__meta-item govuk-footer__meta-item--grow">
-  
+
           <h2 class="govuk-visually-hidden">Support links</h2>
-  
+
           <ul class="govuk-footer__inline-list">
-  
+
             <li class="govuk-footer__inline-list-item">
               <a class="govuk-footer__link" href="{{url_for('main.privacy')}}">
                 Privacy
               </a>
             </li>
-  
+
             <li class="govuk-footer__inline-list-item">
               <a class="govuk-footer__link" href="{{url_for('main.cookies')}}">
                 Cookies
               </a>
             </li>
-  
+
             <li class="govuk-footer__inline-list-item">
               <a class="govuk-footer__link" href="{{url_for('main.accessibility_statement')}}">
                 Accessibility statement
               </a>
             </li>
-  
+
           </ul>
-  
-  
+
+
           <div class="govuk-footer__meta-custom">
             Built by <a href="https://www.wearecast.org.uk/" class="govuk-footer__link" rel="noopener nofollow">CAST</a>
             &amp; <a href="https://bitzesty.com/" class="govuk-footer__link" rel="noopener nofollow">Bit Zesty</a> for <a
               href="https://www.thecatalyst.org.uk/" class="govuk-footer__link">Catalyst</a>
           </div>
-  
-  
+
+
           <svg role="presentation" focusable="false" class="govuk-footer__licence-logo" xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 483.2 195.7" height="17" width="41">
             <path fill="currentColor"
@@ -420,4 +420,3 @@
     </div>
   </footer>
 {% endblock %}
-
