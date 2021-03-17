@@ -29,6 +29,7 @@
         empty_message='',
         field_headings=[
           'Month',
+          'Emails',
           'Text messages',
         ],
         field_headings_visible=False,
@@ -39,6 +40,7 @@
             {{ month.name }}
           {% endcall %}
           {% for counts, template_type in [
+            (month.email_counts, 'email'),
             (month.sms_counts, 'sms')
           ] %}
             {% call field(align='left') %}
