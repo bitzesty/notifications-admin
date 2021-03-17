@@ -29,6 +29,7 @@ blinker==1.4
     # via
     #   -r requirements.txt
     #   gds-metrics
+    #   sentry-sdk
 boto3==1.16.51
     # via
     #   -r requirements.txt
@@ -47,6 +48,7 @@ certifi==2020.12.5
     # via
     #   -r requirements.txt
     #   requests
+    #   sentry-sdk
 chardet==4.0.0
     # via
     #   -r requirements.txt
@@ -106,6 +108,7 @@ flask==1.1.2
     #   flask-wtf
     #   gds-metrics
     #   notifications-utils
+    #   sentry-sdk
 freezegun==0.3.12
     # via -r requirements_for_test.in
 future==0.18.2
@@ -195,7 +198,7 @@ more-itertools==8.6.0
     # via pytest
 notifications-python-client==5.7.1
     # via -r requirements.txt
-git+https://github.com/alphagov/notifications-utils.git@43.8.3#egg=notifications-utils==43.8.3
+https://github.com/bitzesty/notifications-utils/archive/catalyst.zip
     # via -r requirements.txt
 openpyxl==3.0.5
     # via
@@ -323,6 +326,8 @@ s3transfer==0.3.3
     #   -r requirements.txt
     #   awscli
     #   boto3
+sentry-sdk[flask]==0.20.3
+    # via -r requirements.txt
 shapely==1.7.1
     # via
     #   -r requirements.txt
@@ -360,6 +365,7 @@ urllib3==1.26.2
     #   -r requirements.txt
     #   botocore
     #   requests
+    #   sentry-sdk
 wcwidth==0.2.5
     # via pytest
 webencodings==0.5.1
