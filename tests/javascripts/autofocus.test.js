@@ -16,7 +16,7 @@ describe('Autofocus', () => {
 
   beforeEach(() => {
 
-    document.title = 'Find services by name - GOV.UK Notify';
+    document.title = 'Find services by name - Catalyst Notify';
 
     // set up DOM
     document.body.innerHTML =

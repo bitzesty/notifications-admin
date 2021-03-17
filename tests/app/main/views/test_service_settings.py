@@ -3862,7 +3862,7 @@ def test_unknown_channel_404s(
     ),
     (
         'email',
-        'It’s free to send emails through GOV.UK Notify.',
+        'It’s free to send emails through Catalyst Notify.',
         'Send emails',
         [],
         'False',
@@ -3871,7 +3871,7 @@ def test_unknown_channel_404s(
     ),
     (
         'email',
-        'It’s free to send emails through GOV.UK Notify.',
+        'It’s free to send emails through Catalyst Notify.',
         'Send emails',
         ['email', 'sms', 'letter'],
         'True',

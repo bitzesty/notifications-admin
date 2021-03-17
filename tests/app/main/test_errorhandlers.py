@@ -51,7 +51,7 @@ def test_csrf_returns_400(logged_in_client, mocker):
 
     assert response.status_code == 400
     page = BeautifulSoup(response.data.decode('utf-8'), 'html.parser')
-    assert page.h1.string.strip() == 'Sorry, there’s a problem with GOV.UK Notify'
+    assert page.h1.string.strip() == 'Sorry, there’s a problem with Catalyst Notify'
     assert page.title.string.strip() == 'Sorry, there’s a problem with the service – Catalyst Notify'
 
 

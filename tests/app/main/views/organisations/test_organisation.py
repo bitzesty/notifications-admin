@@ -75,7 +75,7 @@ def test_view_organisation_shows_the_correct_organisation(
 
     assert normalize_spaces(page.select_one('h1').text) == 'Usage'
     assert normalize_spaces(page.select_one('.govuk-hint').text) == (
-        'Test 1 has no live services on GOV.UK Notify'
+        'Test 1 has no live services on Catalyst Notify'
     )
 
 

@@ -214,7 +214,7 @@ def test_old_integration_testing_page(
 def test_terms_page_has_correct_content(client_request):
     terms_page = client_request.get('main.terms')
     assert normalize_spaces(terms_page.select('main p')[0].text) == (
-        'These terms apply to your service’s use of GOV.UK Notify. '
+        'These terms apply to your service’s use of Catalyst Notify. '
         'You must be the service manager to accept them.'
     )
 

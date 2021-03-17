@@ -42,8 +42,8 @@ describe("Cookie message", () => {
     cookieMessage = `
       <div id="global-cookie-message" class="notify-cookie-banner" data-module="cookie-banner" role="region" aria-label="cookie banner" data-nosnippet="">
         <div class="notify-cookie-banner__wrapper govuk-width-container govuk-!-padding-4">
-          <h2 class="notify-cookie-banner__heading govuk-heading-m">Cookies on GOV.UK Notify</h2>
-          <p class="notify-cookie-banner__message govuk-body">We use <a class="govuk-link govuk-link--no-visited-state" href="/cookies">small files called cookies</a> to make GOV.UK Notify work.</p>
+          <h2 class="notify-cookie-banner__heading govuk-heading-m">Cookies on Catalyst Notify</h2>
+          <p class="notify-cookie-banner__message govuk-body">We use <a class="govuk-link govuk-link--no-visited-state" href="/cookies">small files called cookies</a> to make Catalyst Notify work.</p>
           <div class="notify-cookie-banner__buttons notify-cookie-banner__no-js">
             <div class="notify-cookie-banner__button">
               <a href="/cookies" class="govuk-button notify-cookie-banner-button--inline" role="button" data-accept-cookies="true">Set cookie preferences</a>
@@ -92,7 +92,7 @@ describe("Cookie message", () => {
 
   });
 
-  /* 
+  /*
     Note: If no JS, the cookie banner is hidden.
 
     This works through CSS, based on the presence of the `js-enabled` class on the <body> so is not tested here.
@@ -198,7 +198,7 @@ describe("Cookie message", () => {
 
         expect(banner.is('hidden')).toBe(true);
 
-      }); 
+      });
 
       test("The consent cookie should be set, with analytics set to 'true'", () => {
 
@@ -242,7 +242,7 @@ describe("Cookie message", () => {
 
         expect(banner.is('hidden')).toBe(true);
 
-      }); 
+      });
 
       test("The consent cookie should be set, with analytics set to 'false'", () => {
 

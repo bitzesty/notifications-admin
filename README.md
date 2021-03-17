@@ -1,6 +1,6 @@
 # notifications-admin
 
-GOV.UK Notify admin application - https://www.notifications.service.gov.uk/
+Catalyst Notify admin application - https://www.notifications.service.gov.uk/
 
 ## Features of this application
 
