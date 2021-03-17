@@ -118,7 +118,7 @@ monotonic==1.5
     # via notifications-python-client
 notifications-python-client==5.7.1
     # via -r requirements.in
-git+https://github.com/bitzesty/notifications-utils.git@catalyst#egg=notifications-utils==catalyst
+https://github.com/bitzesty/notifications-utils/archive/catalyst.zip
     # via -r requirements.in
 openpyxl==3.0.5
     # via pyexcel-xlsx
