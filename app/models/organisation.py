@@ -61,11 +61,7 @@ class Organisation(JSONModel):
     def create_from_form(cls, form):
         return cls.create(
             name=form.name.data,
-            crown={
-                'crown': True,
-                'non-crown': False,
-                'unknown': None,
-            }.get(form.crown_status.data),
+            crown=False,
             organisation_type=form.organisation_type.data,
         )
 
