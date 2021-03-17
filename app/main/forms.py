@@ -1218,8 +1218,6 @@ class NewOrganisationForm(
 ):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        # Don’t offer the ‘not sure’ choice
-        self.crown_status.choices = self.crown_status.choices[:-1]
 
 
 class FreeSMSAllowance(StripWhitespaceForm):
