@@ -118,7 +118,7 @@ monotonic==1.5
     # via notifications-python-client
 notifications-python-client==5.7.1
     # via -r requirements.in
-git+https://github.com/alphagov/notifications-utils.git@43.8.3#egg=notifications-utils==43.8.3
+git+https://github.com/bitzesty/notifications-utils.git@catalyst#egg=notifications-utils==catalyst
     # via -r requirements.in
 openpyxl==3.0.5
     # via pyexcel-xlsx
