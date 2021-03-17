@@ -19,6 +19,13 @@
     <div id='pill-selected-item'>
       <div class='govuk-grid-row'>
         <div class='govuk-grid-column-one-third'>
+          <h2 class='heading-small'>Emails</h2>
+          <div class="keyline-block">
+            {{ big_number(emails_sent, 'sent', smaller=True) }}
+            {{ big_number("Unlimited", 'free allowance', smaller=True) }}
+          </div>
+        </div>
+        <div class='govuk-grid-column-one-third'>
           <h2 class='heading-small'>Text messages</h2>
           <div class="keyline-block">
             {{ big_number(sms_sent, 'sent', smaller=True) }}
@@ -36,6 +43,11 @@
       </div>
 
       <div class='govuk-grid-row'>
+        <div class='govuk-grid-column-one-third'>
+          <div class="keyline-block">
+            &nbsp;
+          </div>
+        </div>
         <div class='govuk-grid-column-one-third'>
           <div class="keyline-block">
             {{ big_number(

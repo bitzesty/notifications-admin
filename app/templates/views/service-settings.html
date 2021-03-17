@@ -51,6 +51,71 @@
       {% if not current_service.has_permission('broadcast') %}
 
         {% call mapping_table(
+                  caption='Email settings',
+                  field_headings=['Label', 'Value', 'Action'],
+                  field_headings_visible=False,
+                  caption_visible=True
+                ) %}
+        
+        {% call row() %}
+        {{ text_field('Send emails') }}
+        {{ boolean_field('email' in current_service.permissions) }}
+        {{ edit_field(
+                      'Change',
+                      url_for(
+                        '.service_set_channel',
+                        channel='email',
+                        service_id=current_service.id
+                      ),
+                      permissions=['manage_service'],
+                      suffix='your settings for sending emails',
+                    )}}
+        {% endcall %}
+        
+        {% call settings_row(if_has_permission='email') %}
+        {{ text_field('Reply-to email addresses') }}
+        {% call field(status='default' if current_service.count_email_reply_to_addresses == 0 else '') %}
+        {{ current_service.default_email_reply_to_address or 'Not set' }}
+        {% if current_service.count_email_reply_to_addresses > 1 %}
+        <div class="hint">
+          {{ '…and %d more' | format(current_service.count_email_reply_to_addresses - 1) }}
+        </div>
+        {% endif %}
+        {% endcall %}
+        {{ edit_field(
+                        'Manage',
+                        url_for('.service_email_reply_to', service_id=current_service.id),
+                        permissions=['manage_service','manage_api_keys'],
+                        suffix='reply-to email addresses',
+                      )
+                    }}
+        {% endcall %}
+        
+        {% call settings_row(if_has_permission='email') %}
+        {{ text_field('Email branding') }}
+        {{ text_field(current_service.email_branding_name) }}
+        {{ edit_field(
+                      'Change',
+                      url_for('.branding_request', service_id=current_service.id, branding_type="email"),
+                      permissions=['manage_service'],
+                      suffix='email branding',
+                    )}}
+        {% endcall %}
+        
+        {% call settings_row(if_has_permission='email') %}
+        {{ text_field('Send files by email') }}
+        {{ text_field(current_service.contact_link if current_service.contact_link else "Not set up", truncate=true) }}
+        {{ edit_field(
+                      'Manage',
+                      url_for('.send_files_by_email_contact_details', service_id=current_service.id),
+                      permissions=['manage_service'],
+                      suffix='sending files by email',
+                    )}}
+        {% endcall %}
+        
+        {% endcall %}
+
+        {% call mapping_table(
           caption='Text message settings',
           field_headings=['Label', 'Value', 'Action'],
           field_headings_visible=False,
@@ -140,7 +205,7 @@
           <p class="govuk-body">You can only:</p>
 
           <ul class='list list-bullet'>
-            <li>send {{ current_service.message_limit }} text messages per day</li>
+            <li>send {{ current_service.message_limit }} text messages and emails per day</li>
             <li>send messages to yourself and other people in your team</li>
           </ul>
 
@@ -174,6 +239,8 @@
       <div class="settings-table body-copy-table top-gutter-4-3">
 
         <h2 class="heading-medium">Platform admin settings</h2>
+
+        
 
         {% call mapping_table(
           caption='Settings',
