@@ -1151,18 +1151,6 @@ class OrganisationOrganisationTypeForm(StripWhitespaceForm):
     organisation_type = OrganisationTypeField('What type of organisation is this?')
 
 
-class OrganisationCrownStatusForm(StripWhitespaceForm):
-    crown_status = GovukRadiosField(
-        'Is this organisation a crown body?',
-        choices=[
-            ('crown', 'Yes'),
-            ('non-crown', 'No'),
-            ('unknown', 'Not sure'),
-        ],
-        thing='whether this organisation is a crown body',
-    )
-
-
 class OrganisationAgreementSignedForm(StripWhitespaceForm):
     agreement_signed = GovukRadiosField(
         'Has this organisation signed the agreement?',
@@ -1227,7 +1215,6 @@ class CreateNhsServiceForm(CreateServiceForm):
 class NewOrganisationForm(
     RenameOrganisationForm,
     OrganisationOrganisationTypeForm,
-    OrganisationCrownStatusForm,
 ):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

@@ -24,7 +24,6 @@ from app.main.forms import (
     InviteOrgUserForm,
     NewOrganisationForm,
     OrganisationAgreementSignedForm,
-    OrganisationCrownStatusForm,
     OrganisationDomainsForm,
     OrganisationOrganisationTypeForm,
     PreviewBranding,
@@ -292,36 +291,6 @@ def edit_organisation_type(org_id):
         'views/organisations/organisation/settings/edit-type.html',
         form=form,
     )
-
-
-@main.route("/organisations/<uuid:org_id>/settings/edit-crown-status", methods=['GET', 'POST'])
-@user_is_platform_admin
-def edit_organisation_crown_status(org_id):
-
-    form = OrganisationCrownStatusForm(
-        crown_status={
-            True: 'crown',
-            False: 'non-crown',
-            None: 'unknown',
-        }.get(current_organisation.crown)
-    )
-
-    if form.validate_on_submit():
-        organisations_client.update_organisation(
-            current_organisation.id,
-            crown={
-                'crown': True,
-                'non-crown': False,
-                'unknown': None,
-            }.get(form.crown_status.data),
-        )
-        return redirect(url_for('.organisation_settings', org_id=org_id))
-
-    return render_template(
-        'views/organisations/organisation/settings/edit-crown-status.html',
-        form=form,
-    )
-
 
 @main.route("/organisations/<uuid:org_id>/settings/edit-agreement", methods=['GET', 'POST'])
 @user_is_platform_admin
