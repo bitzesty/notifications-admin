@@ -65,4 +65,4 @@ var Frontend = {
 
 export {
   Frontend
-}
+};
