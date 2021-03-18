@@ -2,7 +2,6 @@
   "use strict";
 
   Modules.TemplateFolderForm = function() {
-
     this.start = function(templateFolderForm) {
       this.$form = $(templateFolderForm);
 

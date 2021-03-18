@@ -116,7 +116,7 @@ const copy = {
 const javascripts = () => {
   // JS from third-party sources
   // We assume none of it will need to pass through Babel
-  const vendored = src(paths.src + 'javascripts/modules/all.mjs')
+  const vendored = src(paths.src + 'javascripts/modules/all.js')
     // Use Rollup to combine all JS in JS module format into a Immediately Invoked Function
     // Expression (IIFE) to:
     // - deliver it in one bundle

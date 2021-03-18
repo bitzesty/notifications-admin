@@ -127,7 +127,7 @@
     ] %}
   {% endif %}
 
-  <header class="govuk-header" role="banner" data-module="govuk-header">
+  <header class="govuk-header" role="banner" data-module="header">
     <div class="govuk-header__container govuk-width-container">
       <div class="govuk-header__logo">
         <a href="{{ url_for('main.show_accounts_or_dashboard') }}" class="govuk-header__link govuk-header__link--homepage govuk-header__logo">
@@ -138,7 +138,7 @@
       </div>
       <div class="govuk-header__content">
         {% if navigation %}
-        <button type="button" class="govuk-header__menu-button govuk-js-header-toggle" aria-controls="navigation"
+        <button type="button" class="govuk-header__menu-button govuk-js-header-toggle js-header-toggle" aria-controls="navigation"
           aria-label="Show or hide navigation menu">Menu</button>
         <nav>
           <ul id="navigation" class="govuk-header__navigation govuk-header__navigation--end" aria-label="Navigation menu">
@@ -403,4 +403,12 @@
       </div>
     </div>
   </footer>
+{% endblock %}
+
+{% block bodyEnd %}
+{% block extra_javascripts %}
+{% endblock %}
+<!--[if gt IE 8]><!-->
+<script type="text/javascript" src="{{ asset_url('javascripts/all.js') }}"></script>
+<!--<![endif]-->
 {% endblock %}
