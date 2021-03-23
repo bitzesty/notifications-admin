@@ -20,7 +20,6 @@ from app import (
     billing_api_client,
     current_service,
     email_branding_client,
-    format_thousands,
     inbound_number_client,
     letter_branding_client,
     notification_api_client,
@@ -64,7 +63,6 @@ from app.utils import (
     FAILURE_STATUSES,
     SENDING_STATUSES,
     user_has_permissions,
-    user_is_gov_user,
     user_is_platform_admin,
 )
 

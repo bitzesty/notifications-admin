@@ -292,6 +292,7 @@ def edit_organisation_type(org_id):
         form=form,
     )
 
+
 @main.route("/organisations/<uuid:org_id>/settings/edit-agreement", methods=['GET', 'POST'])
 @user_is_platform_admin
 def edit_organisation_agreement(org_id):
