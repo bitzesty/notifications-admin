@@ -2,7 +2,7 @@
 # Rule definitions: http://flake8.pycqa.org/en/latest/user/error-codes.html
 exclude = venv*,__pycache__,node_modules,cache
 max-complexity = 14
-max-line-length = 120
+max-line-length = 125
 
 # B003 assigning to os.environ
 # B306 BaseException.message has been deprecated
