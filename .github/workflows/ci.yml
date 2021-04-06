@@ -36,7 +36,7 @@ jobs:
           sudo mv /tmp/convox /usr/local/bin/convox
           chmod 755 /usr/local/bin/convox
           convox -v
-          env CONVOX_HOST="console.convox.com" CONVOX_PASSWORD="$CONVOX_PASSWORD" convox deploy --app notifications-admin-staging --rack bitzesty/castnotify --wait
+          env CONVOX_HOST="console.convox.com" CONVOX_PASSWORD="$CONVOX_PASSWORD" convox deploy --app notifications-admin-staging --rack bitzesty/castnotify
   deploy_production:
     needs: [test]
     if: github.ref == 'refs/heads/production'
@@ -53,4 +53,4 @@ jobs:
           sudo mv /tmp/convox /usr/local/bin/convox
           chmod 755 /usr/local/bin/convox
           convox -v
-          env CONVOX_HOST="console.convox.com" CONVOX_PASSWORD="$CONVOX_PASSWORD" convox deploy --app notifications-admin-production --rack bitzesty/castnotify --wait
+          env CONVOX_HOST="console.convox.com" CONVOX_PASSWORD="$CONVOX_PASSWORD" convox deploy --app notifications-admin-production --rack bitzesty/castnotify
