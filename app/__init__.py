@@ -93,6 +93,7 @@ from app.notify_client.email_branding_client import email_branding_client
 from app.notify_client.events_api_client import events_api_client
 from app.notify_client.inbound_number_client import inbound_number_client
 from app.notify_client.invite_api_client import invite_api_client
+from app.notify_client.feedback_api_client import feedback_api_client
 from app.notify_client.job_api_client import job_api_client
 from app.notify_client.letter_branding_client import letter_branding_client
 from app.notify_client.letter_jobs_client import letter_jobs_client
@@ -178,6 +179,7 @@ def create_app(application):
         events_api_client,
         inbound_number_client,
         invite_api_client,
+        feedback_api_client,
         job_api_client,
         letter_branding_client,
         letter_jobs_client,
