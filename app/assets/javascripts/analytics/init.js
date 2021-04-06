@@ -3,7 +3,7 @@
 
   window.GOVUK = window.GOVUK || {};
 
-  const trackingId = 'UA-75215134-1';
+  const trackingId = 'G-RW9L6Y0422';
 
   // Disable analytics by default
   window[`ga-disable-${trackingId}`] = true;
