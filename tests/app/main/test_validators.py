@@ -3,7 +3,11 @@ from unittest.mock import Mock
 import pytest
 from wtforms import ValidationError
 
-from app.main.forms import RegisterUserForm, ServiceSmsSenderForm
+from app.main.forms import (
+    BroadcastInviteUserForm,
+    RegisterUserForm,
+    ServiceSmsSenderForm,
+)
 from app.main.validators import (
     MustContainAlphanumericCharacters,
     NoCommasInPlaceHolders,
@@ -34,7 +38,7 @@ def test_valid_email_not_in_valid_domains(
     client,
     mock_get_organisations,
 ):
-    form = RegisterUserForm(email_address="test@test.com", mobile_number='441231231231')
+    form = BroadcastInviteUserForm(email_address="test@test.com")
     assert not form.validate()
     assert "Enter a public sector email address" in form.errors['email_address'][0]
 

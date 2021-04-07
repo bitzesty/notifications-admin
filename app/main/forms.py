@@ -1056,10 +1056,10 @@ class InviteOrgUserForm(StripWhitespaceForm):
 
 class TwoFactorForm(StripWhitespaceForm):
     def __init__(self, validate_code_func, *args, **kwargs):
-        '''
+        """
         Keyword arguments:
         validate_code_func -- Validates the code with the API.
-        '''
+        """
         self.validate_code_func = validate_code_func
         super(TwoFactorForm, self).__init__(*args, **kwargs)
 
