@@ -138,7 +138,7 @@ def test_get_feedback_page(client, ticket_type, expected_status_code):
 @freeze_time('2016-12-12 12:00:00.000000')
 @pytest.mark.parametrize('ticket_type', [PROBLEM_TICKET_TYPE, QUESTION_TICKET_TYPE])
 def test_passed_non_logged_in_user_details_through_flow(client, mocker, ticket_type):
-    mock_post = mocker.patch('app.main.views.feedback.zendesk_client.create_ticket')
+    mock_post = mocker.patch('app.main.views.feedback.feedback_api_client.create_feedback')
 
     data = {'feedback': 'blah', 'name': 'Steve Irwin', 'email_address': 'rip@gmail.com'}
 
@@ -155,12 +155,9 @@ def test_passed_non_logged_in_user_details_through_flow(client, mocker, ticket_t
         _external=True,
     )
     mock_post.assert_called_with(
-        subject='Notify feedback',
         message='blah\n',
-        user_email='rip@gmail.com',
-        user_name='Steve Irwin',
-        ticket_type=ticket_type,
-        p1=ANY
+        email='rip@gmail.com',
+        name='Steve Irwin'
     )
 
 
@@ -177,7 +174,7 @@ def test_passes_user_details_through_flow(
     ticket_type,
     data
 ):
-    mock_post = mocker.patch('app.main.views.feedback.zendesk_client.create_ticket')
+    mock_post = mocker.patch('app.main.views.feedback.feedback_api_client.create_feedback')
 
     client_request.post(
         'main.feedback',
@@ -193,12 +190,9 @@ def test_passes_user_details_through_flow(
     )
 
     mock_post.assert_called_with(
-        subject='Notify feedback',
         message=ANY,
-        user_email='test@user.gov.uk',
-        user_name='Test User',
-        ticket_type=ticket_type,
-        p1=ANY
+        email='test@user.gov.uk',
+        name='Test User'
     )
     assert mock_post.call_args[1]['message'] == '\n'.join([
         'blah',
@@ -227,7 +221,7 @@ def test_email_address_required_for_problems_and_questions(
     data,
     ticket_type,
 ):
-    mocker.patch('app.main.views.feedback.zendesk_client')
+    mocker.patch('app.main.views.feedback.feedback_api_client')
     client_request.logout()
     page = client_request.post(
         'main.feedback',
@@ -289,7 +283,7 @@ def test_urgency(
     is_out_of_hours_emergency,
 ):
     mocker.patch('app.main.views.feedback.in_business_hours', return_value=is_in_business_hours)
-    mock_post = mocker.patch('app.main.views.feedback.zendesk_client.create_ticket')
+    mock_post = mocker.patch('app.main.views.feedback.feedback_api_client.create_feedback')
     client_request.post(
         'main.feedback',
         ticket_type=ticket_type,
