@@ -1,4 +1,4 @@
-.template-container {
+    .template-container {
   position: relative;
 }
 
@@ -12,7 +12,8 @@
   padding: 10px govuk-spacing(3);
   z-index: 10000;
 
-  &:link, &:visited {
+  &:link,
+  &:visited {
     color: $white;
   }
 

@@ -112,9 +112,9 @@
     &:active,
     &:focus {
       background: $govuk-focus-colour;
-      border: none;
-      padding: 2px; /* replace the spacing the border gave */
-      /* override the default focus style to inset the underline */
+      border: 0;
+      padding: 2px; // replace the spacing the border gave
+      // override the default focus style to inset the underline
       box-shadow: inset 0 -4px $govuk-focus-text-colour;
 
       .big-number-number,

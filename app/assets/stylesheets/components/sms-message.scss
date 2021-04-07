@@ -15,8 +15,8 @@ $tail-angle: 20deg;
   clear: both;
   word-wrap: break-word;
 
-  &:after {
-    content: "";
+  &::after {
+    content: '';
     display: block;
     position: absolute;
     bottom: -5px;
@@ -35,7 +35,7 @@ $tail-angle: 20deg;
 
   .sms-message-wrapper {
 
-    &:after {
+    &::after {
       border-left-color: transparent;
       border-bottom-color: $panel-colour;
       border-right-color: $panel-colour;

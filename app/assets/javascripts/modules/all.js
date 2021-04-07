@@ -18,7 +18,7 @@ import Radios from 'govuk-frontend/components/radios/radios';
  */
 function nodeListForEach (nodes, callback) {
   if (window.NodeList.prototype.forEach) {
-    return nodes.forEach(callback)
+    return nodes.forEach(callback);
   }
   for (var i = 0; i < nodes.length; i++) {
     callback.call(window, nodes[i], i, nodes);
@@ -29,30 +29,30 @@ function nodeListForEach (nodes, callback) {
 // except it only includes, and initialises, the components used by this application.
 function initAll (options) {
   // Set the options to an empty object by default if no options are passed.
-  options = typeof options !== 'undefined' ? options : {}
+  options = typeof options !== 'undefined' ? options : {};
 
   // Allow the user to initialise GOV.UK Frontend in only certain sections of the page
   // Defaults to the entire document if nothing is set.
-  var scope = typeof options.scope !== 'undefined' ? options.scope : document
+  var scope = typeof options.scope !== 'undefined' ? options.scope : document;
 
   // Find all buttons with [role=button] on the scope to enhance.
-  new Button(scope).init()
+  new Button(scope).init();
 
   // Find all global details elements to enhance.
-  var $details = scope.querySelectorAll('details')
+  var $details = scope.querySelectorAll('details');
   nodeListForEach($details, function ($detail) {
-    new Details($detail).init()
-  })
+    new Details($detail).init();
+  });
 
   // Find first header module to enhance.
-  var $toggleButton = scope.querySelector('[data-module="header"]')
+  var $toggleButton = scope.querySelector('[data-module="header"]');
   
-  new Header($toggleButton).init()
+  new Header($toggleButton).init();
 
-  var $radios = scope.querySelectorAll('[data-module="radios"]')
+  var $radios = scope.querySelectorAll('[data-module="radios"]');
   nodeListForEach($radios, function ($radio) {
-    new Radios($radio).init()
-  })
+    new Radios($radio).init();
+  });
 }
 
 // Create separate namespace for GOVUK Frontend.
@@ -61,7 +61,7 @@ var Frontend = {
   "Details": Details,
   "Button": Button,
   "initAll": initAll
-}
+};
 
 export {
   Frontend

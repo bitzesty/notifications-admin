@@ -104,14 +104,14 @@ details summary {
     text-align: center;
   }
 
-  th, td {
+  th,
+  td {
     padding-left: 10px;
     padding-right: 10px;
     border: 1px solid $border-colour;
   }
 
   td {
-
     border-top: 0;
     // 194 is the width of the table * 1/3.5, so the overflow cuts off
     // at 3.5 columns wide.
@@ -121,7 +121,6 @@ details summary {
     &:first-child {
       min-width: auto;
     }
-
   }
 
   .fullscreen-fixed-table {
@@ -237,13 +236,13 @@ details .arrow {
   position: relative;
   display: inline-block;
 
-  &:before {
-    content: "";
+  &::before {
+    content: '';
     display: block;
     float: right;
     margin-top: 1px;
     margin-left: 5px;
-    border: none;
+    border: 0;
     background: $red;
     width: 19px;
     height: 19px;
@@ -254,7 +253,7 @@ details .arrow {
 
   &--left {
 
-    &:before {
+    &::before {
       float: left;
       margin-left: 0;
       margin-right: 10px;

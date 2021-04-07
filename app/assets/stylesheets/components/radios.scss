@@ -65,8 +65,8 @@
     float: none;
     position: relative;
 
-    &:before {
-      content: "";
+    &::before {
+      content: '';
       position: absolute;
       bottom: 0;
       left: $border-indent;
@@ -93,10 +93,10 @@
     }
 
     .block-label-hint {
-      &:after {
+      &::after {
         // Adds an little extra segment of line alongside the ‘current folder’
         // hint so that it extends all the way down to the next radio
-        content: "";
+        content: '';
         position: absolute;
         top: $circle-diameter + 5px;
         left: $border-indent;
@@ -145,7 +145,7 @@
       font-size: 0;
       padding: 0;
 
-      &:before {
+      &::before {
         background: $white;
       }
 
