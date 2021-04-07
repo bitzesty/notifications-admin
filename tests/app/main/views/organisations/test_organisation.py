@@ -723,15 +723,6 @@ def test_organisation_settings_for_platform_admin(
         'central',
     ),
     (
-        '.edit_organisation_crown_status',
-        (
-            {'value': 'crown', 'label': 'Yes'},
-            {'value': 'non-crown', 'label': 'No'},
-            {'value': 'unknown', 'label': 'Not sure'},
-        ),
-        'crown',
-    ),
-    (
         '.edit_organisation_agreement',
         (
             {
@@ -809,21 +800,6 @@ def test_view_organisation_settings(
         '.edit_organisation_type',
         {'organisation_type': 'nhs_local'},
         {'cached_service_ids': [], 'organisation_type': 'nhs_local'},
-    ),
-    (
-        '.edit_organisation_crown_status',
-        {'crown_status': 'crown'},
-        {'crown': True},
-    ),
-    (
-        '.edit_organisation_crown_status',
-        {'crown_status': 'non-crown'},
-        {'crown': False},
-    ),
-    (
-        '.edit_organisation_crown_status',
-        {'crown_status': 'unknown'},
-        {'crown': None},
     ),
     (
         '.edit_organisation_agreement',
