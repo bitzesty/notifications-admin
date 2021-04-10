@@ -779,7 +779,7 @@ def test_monthly_shows_letters_in_breakdown(
 
     assert normalize_spaces(columns[0].text) == 'emails'
     assert normalize_spaces(columns[1].text) == 'text messages'
-    assert normalize_spaces(columns[2].text) == 'letters'
+    assert 'letters' not in page
 
 
 @pytest.mark.parametrize('endpoint', [
@@ -815,7 +815,7 @@ def test_monthly_has_equal_length_tables(
         service_id=service_one['id']
     )
 
-    assert page.select_one('.table-field-headings th').get('width') == "25%"
+    assert page.select_one('.table-field-headings th').get('width') == "33%"
 
 
 @freeze_time("2016-01-01 11:09:00.061258")
@@ -957,7 +957,7 @@ def test_correct_font_size_for_big_numbers(
         len(page.select_one('[data-key=usage]').select('.govuk-grid-column-one-third'))
     ) == (
         len(page.select('.big-number-with-status .big-number-smaller'))
-    ) == 3
+    ) == 2
 
 
 def test_should_not_show_jobs_on_dashboard_for_users_with_uploads_page(
@@ -1066,12 +1066,13 @@ def test_usage_page_with_letters(
     assert '140 free text messages' in table
     assert '£20.30' in table
     assert '1,230 text messages at 1.65p' in table
-    assert '10 second class letters at 31p' in normalize_spaces(table)
-    assert '5 first class letters at 33p' in normalize_spaces(table)
-    assert '10 international letters at 84p' in normalize_spaces(table)
+    assert '10 second class letters at 31p' not in normalize_spaces(table)
+    assert '5 first class letters at 33p' not in normalize_spaces(table)
+    assert '10 international letters at 84p' not in normalize_spaces(table)
 
 
 @freeze_time("2012-04-30 12:12:12")
+@pytest.mark.skip(reason='letters usage is not displayed')
 def test_usage_page_displays_letters_ordered_by_postage(
     mocker,
     client_request,
@@ -1106,7 +1107,7 @@ def test_usage_page_displays_letters_ordered_by_postage(
 
 
 @freeze_time("2012-07-30 12:12:12")
-def test_usage_page_displays_letters_split_by_month_and_postage(
+def test_usage_page_displays_sms_messages_split_by_month(
     mocker,
     client_request,
     service_one,
@@ -1114,11 +1115,9 @@ def test_usage_page_displays_letters_split_by_month_and_postage(
     mock_get_free_sms_fragment_limit
 ):
     billable_units_resp = [
-        {'month': 'April', 'notification_type': 'letter', 'rate': 0.5, 'billing_units': 1, 'postage': 'second'},
-        {'month': 'April', 'notification_type': 'letter', 'rate': 1, 'billing_units': 1, 'postage': 'europe'},
-        {'month': 'May', 'notification_type': 'letter', 'rate': 1, 'billing_units': 7, 'postage': 'europe'},
-        {'month': 'May', 'notification_type': 'letter', 'rate': 0.5, 'billing_units': 3, 'postage': 'second'},
-        {'month': 'May', 'notification_type': 'letter', 'rate': 0.7, 'billing_units': 1, 'postage': 'first'},
+        {'month': 'April', 'notification_type': 'sms', 'rate': 1.65, 'billing_units': 100000},
+        {'month': 'May', 'notification_type': 'sms', 'rate': 2.15, 'billing_units': 200000},
+        {'month': 'June', 'notification_type': 'sms', 'rate': 0.75, 'billing_units': 100000},
     ]
     mocker.patch('app.billing_api_client.get_billable_units', return_value=billable_units_resp)
     service_one['permissions'].append('letter')
@@ -1129,12 +1128,11 @@ def test_usage_page_displays_letters_split_by_month_and_postage(
 
     april_row = normalize_spaces(page.find('table').find_all('tr')[1].text)
     may_row = normalize_spaces(page.find('table').find_all('tr')[2].text)
+    june_row = normalize_spaces(page.find('table').find_all('tr')[3].text)
 
-    assert '1 second class letter at 50p' in april_row
-    assert '1 international letter at £1.00' in april_row
-    assert '1 first class letter at 70p' in may_row
-    assert '3 second class letters at 50p' in may_row
-    assert '7 international letters at £1.00' in may_row
+    assert '£0.00 100,000 free text messages' in april_row
+    assert '£825.00 150,000 free text messages 50,000 text messages at 1.65p' in may_row
+    assert '£1,650.00 100,000 text messages at 1.65p' in june_row
 
 
 def test_usage_page_with_year_argument(
@@ -1220,9 +1218,9 @@ def test_menu_send_messages(
             'main.choose_template',
             service_id=service_one['id'],
         ) in page
-        assert url_for('main.uploads', service_id=service_one['id']) in page
+        assert url_for('main.service_dashboard', service_id=service_one['id']) in page
         assert url_for('main.manage_users', service_id=service_one['id']) in page
-
+        assert url_for('main.usage', service_id=service_one['id']) not in page
         assert url_for('main.service_settings', service_id=service_one['id']) not in page
         assert url_for('main.api_keys', service_id=service_one['id']) not in page
         assert url_for('main.view_providers') not in page
@@ -1736,7 +1734,5 @@ def test_should_show_usage_on_dashboard(
         'Unlimited '
         'free email allowance '
         '£36.14 '
-        'spent on text messages '
-        '£0.00 '
-        'spent on letters'
+        'spent on text messages'
     )
