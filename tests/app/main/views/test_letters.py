@@ -63,6 +63,7 @@ def test_letters_lets_in_without_permission(
         ['Email', 'Text message', 'Copy an existing template']
     ),
 ])
+@pytest.mark.skip(reason='letters are not displayed')
 def test_given_option_to_add_letters_if_allowed(
     client_request,
     service_one,

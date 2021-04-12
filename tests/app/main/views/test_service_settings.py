@@ -5161,7 +5161,7 @@ def test_service_settings_links_to_branding_request_page_for_letters(
     mocker,
     service_one,
     client_request,
-    active_user_with_permissions,
+    platform_admin_client,
     no_reply_to_email_addresses,
     no_letter_contact_blocks,
     single_sms_sender,
@@ -5173,7 +5173,9 @@ def test_service_settings_links_to_branding_request_page_for_letters(
     page = client_request.get(
         '.service_settings', service_id=SERVICE_ONE_ID
     )
-    assert len(page.find_all('a', attrs={'href': '/services/{}/branding-request/letter'.format(SERVICE_ONE_ID)})) == 1
+    assert len(
+        page.find_all('a', attrs={'href': '/services/{}/service-settings/set-letter-branding'.format(SERVICE_ONE_ID)})
+    ) == 1
 
 
 def test_show_service_data_retention(
