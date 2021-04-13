@@ -282,7 +282,6 @@ def test_should_show_old_job(
     assert not page.select('.pill')
     assert not page.select('p.hint')
     assert not page.select('a[download]')
-    print(processing_started)
     assert page.select_one('tbody').text.strip() == expected_message
 
 

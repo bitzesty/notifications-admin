@@ -930,11 +930,6 @@ def test_should_check_for_sending_things_right(
         return_value=None,
     )
 
-    mock_get_reply_to_email_addresses = mocker.patch(
-        'app.main.views.service_settings.service_api_client.get_reply_to_email_addresses',
-        return_value=reply_to_email_addresses
-    )
-
     for channel, volume in (('email', volume_email), ('sms', 0), ('letter', 1)):
         mocker.patch(
             'app.models.service.Service.volume_{}'.format(channel),

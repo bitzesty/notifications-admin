@@ -27,7 +27,6 @@ from app import (
     service_api_client,
     user_api_client,
 )
-from app.extensions import zendesk_client
 from app.formatters import email_safe
 from app.main import main
 from app.main.forms import (

@@ -1,5 +1,5 @@
 from functools import partial
-from unittest.mock import ANY, PropertyMock
+from unittest.mock import PropertyMock
 
 import pytest
 from bs4 import BeautifulSoup, element

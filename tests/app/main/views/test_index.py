@@ -339,5 +339,3 @@ def test_letter_spec_redirect_with_non_logged_in_user(client_request):
             '/documentation/images/notify-pdf-letter-spec-v2.4.pdf'
         ),
     )
-
-
