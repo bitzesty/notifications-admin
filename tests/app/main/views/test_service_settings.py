@@ -71,10 +71,6 @@ def mock_get_service_settings_page_common(
         'Start text messages with service name On Change your settings for starting text messages with service name',
         'Send international text messages Off Change your settings for sending international text messages',
         'Receive text messages Off Change your settings for receiving text messages',
-
-        'Label Value Action',
-        'Send letters Off Change your settings for sending letters',
-
     ]),
     (create_platform_admin_user(), [
 
@@ -96,14 +92,11 @@ def mock_get_service_settings_page_common(
         'Receive text messages Off Change your settings for receiving text messages',
 
         'Label Value Action',
-        'Send letters Off Change your settings for sending letters',
-
-        'Label Value Action',
         'Live Off Change service status',
         'Count in list of live services Yes Change if service is counted in list of live services',
         'Billing details No billing details yet Change billing details for service',
         'Notes No notes yet Change the notes for the service',
-        'Organisation Test organisation Central government Change organisation for service',
+        'Organisation Test organisation Charity Change organisation for service',
         'Rate limit 3,000 per minute Change rate limit',
         'Message limit 1,000 per day Change daily message limit',
         'Free text message allowance 250,000 per year Change free text message allowance',
@@ -215,7 +208,7 @@ def test_no_go_live_link_for_service_without_organisation(
     assert normalize_spaces(is_live.find_next_sibling().text) == 'No (organisation must be set first)'
 
     organisation = find_element_by_tag_and_partial_text(page, tag='td', string='Organisation')
-    assert normalize_spaces(organisation.find_next_siblings()[0].text) == 'Not set Central government'
+    assert normalize_spaces(organisation.find_next_siblings()[0].text) == 'Not set None'
     assert normalize_spaces(organisation.find_next_siblings()[1].text) == 'Change organisation for service'
 
 
@@ -296,10 +289,6 @@ def test_send_files_by_email_row_on_settings_page(
         'Start text messages with service name On Change your settings for starting text messages with service name',
         'Send international text messages On Change your settings for sending international text messages',
         'Receive text messages On Change your settings for receiving text messages',
-
-        'Label Value Action',
-        'Send letters Off Change your settings for sending letters',
-
     ]),
     (['email', 'sms', 'email_auth'], [
 
@@ -318,10 +307,6 @@ def test_send_files_by_email_row_on_settings_page(
         'Start text messages with service name On Change your settings for starting text messages with service name',
         'Send international text messages Off Change your settings for sending international text messages',
         'Receive text messages Off Change your settings for receiving text messages',
-
-        'Label Value Action',
-        'Send letters Off Change your settings for sending letters',
-
     ]),
     (['letter'], [
 
@@ -333,13 +318,6 @@ def test_send_files_by_email_row_on_settings_page(
 
         'Label Value Action',
         'Send text messages Off Change your settings for sending text messages',
-
-        'Label Value Action',
-        'Send letters On Change your settings for sending letters',
-        'Send international letters Off Change',
-        'Sender addresses 1 Example Street Manage sender addresses',
-        'Letter branding Not set Change letter branding',
-
     ]),
     (['broadcast'], [
 
@@ -384,47 +362,6 @@ def test_if_cant_send_letters_then_cant_see_letter_contact_block(
 ):
     response = client_request.get('main.service_settings', service_id=service_one['id'])
     assert 'Letter contact block' not in response
-
-
-def test_letter_contact_block_shows_none_if_not_set(
-    client_request,
-    service_one,
-    single_reply_to_email_address,
-    no_letter_contact_blocks,
-    mock_get_organisation,
-    single_sms_sender,
-    mock_get_service_settings_page_common,
-):
-    service_one['permissions'] = ['letter']
-    page = client_request.get(
-        'main.service_settings',
-        service_id=SERVICE_ONE_ID,
-    )
-
-    div = page.find_all('tr')[10].find_all('td')[1].div
-    assert div.text.strip() == 'Not set'
-    assert 'default' in div.attrs['class'][0]
-
-
-def test_escapes_letter_contact_block(
-    client_request,
-    service_one,
-    mocker,
-    single_reply_to_email_address,
-    single_sms_sender,
-    mock_get_organisation,
-    injected_letter_contact_block,
-    mock_get_service_settings_page_common,
-):
-    service_one['permissions'] = ['letter']
-    page = client_request.get(
-        'main.service_settings',
-        service_id=SERVICE_ONE_ID,
-    )
-
-    div = str(page.find_all('tr')[10].find_all('td')[1].div)
-    assert 'foo<br/>bar' in div
-    assert '<script>' not in div
 
 
 def test_should_show_service_name(
@@ -916,8 +853,8 @@ def test_should_check_if_estimated_volumes_provided(
     'reply_to_email_addresses,'
     'expected_reply_to_checklist_item'
 ), [
-    pytest.param(None, 0, [], '', marks=pytest.mark.xfail(raises=IndexError)),
-    pytest.param(0, 0, [], '', marks=pytest.mark.xfail(raises=IndexError)),
+    (None, 0, [], ''),
+    (0, 0, [], ''),
     (None, 1, [], 'Add a reply-to email address Not completed'),
     (None, 1, [{}], 'Add a reply-to email address Completed'),
     (1, 1, [], 'Add a reply-to email address Not completed'),
@@ -1014,14 +951,10 @@ def test_should_check_for_sending_things_right(
     checklist_items = page.select('.task-list .task-list-item')
     assert normalize_spaces(checklist_items[1].text) == expected_user_checklist_item
     assert normalize_spaces(checklist_items[2].text) == expected_templates_checklist_item
-    assert normalize_spaces(checklist_items[3].text) == expected_reply_to_checklist_item
 
     mock_get_users.assert_called_once_with(SERVICE_ONE_ID)
     mock_get_invites.assert_called_once_with(SERVICE_ONE_ID)
     assert mock_templates.called is True
-
-    if count_of_email_templates:
-        mock_get_reply_to_email_addresses.assert_called_once_with(SERVICE_ONE_ID)
 
 
 @pytest.mark.parametrize('checklist_completed, agreement_signed, expected_button', (
@@ -1380,7 +1313,7 @@ def test_gp_without_organisation_is_shown_agreement_step(
     )
 
 
-def test_non_gov_user_is_told_they_cant_go_live(
+def test_non_gov_user_is_told_they_can_go_live(
     client_request,
     api_nongov_user_active,
     mock_get_invites_for_service,
@@ -1410,107 +1343,52 @@ def test_non_gov_user_is_told_they_cant_go_live(
         'main.request_to_go_live', service_id=SERVICE_ONE_ID
     )
     assert normalize_spaces(page.select_one('main p').text) == (
-        'Only team members with a government email address can request to go live.'
+        'You must complete these steps before you can request to go live.'
     )
     assert len(page.select('main form')) == 0
     assert len(page.select('main button')) == 0
 
 
-@pytest.mark.parametrize('consent_to_research, displayed_consent', (
-    (None, None),
-    (True, 'yes'),
-    (False, 'no'),
-))
-@pytest.mark.parametrize('volumes, displayed_volumes', (
-    (
-        (('email', None), ('sms', None), ('letter', None)),
-        (None, None, None),
-    ),
-    (
-        (('email', 1234), ('sms', 0), ('letter', 999)),
-        ('1,234', '0', '999'),
-    ),
-))
 def test_should_show_estimate_volumes(
     mocker,
     client_request,
-    volumes,
-    displayed_volumes,
-    consent_to_research,
-    displayed_consent,
 ):
-    for channel, volume in volumes:
-        mocker.patch(
-            'app.models.service.Service.volume_{}'.format(channel),
-            create=True,
-            new_callable=PropertyMock,
-            return_value=volume,
-        )
+
+    mocker.patch(
+        'app.models.service.Service.volume_sms',
+        create=True,
+        new_callable=PropertyMock,
+        return_value=0,
+    )
     mocker.patch(
         'app.models.service.Service.consent_to_research',
         create=True,
         new_callable=PropertyMock,
-        return_value=consent_to_research,
+        return_value=ANY,
     )
     page = client_request.get(
         'main.estimate_usage', service_id=SERVICE_ONE_ID
     )
     assert page.h1.text == 'Tell us how many messages you expect to send'
-    for channel, label, hint, value in (
-        (
-            'email',
-            'How many emails do you expect to send in the next year?',
-            'For example, 50,000',
-            displayed_volumes[0],
-        ),
-        (
-            'sms',
-            'How many text messages do you expect to send in the next year?',
-            'For example, 50,000',
-            displayed_volumes[1],
-        ),
-        (
-            'letter',
-            'How many letters do you expect to send in the next year?',
-            'For example, 50,000',
-            displayed_volumes[2],
-        ),
-    ):
-        assert normalize_spaces(
-            page.select_one('label[for=volume_{}]'.format(channel)).text
-        ) == label
-        assert normalize_spaces(
-            page.select_one('#volume_{}-hint'.format(channel)).text
-        ) == hint
-        assert page.select_one('#volume_{}'.format(channel)).get('value') == value
 
-    assert len(page.select('input[type=radio]')) == 2
-
-    if displayed_consent is None:
-        assert len(page.select('input[checked]')) == 0
-    else:
-        assert len(page.select('input[checked]')) == 1
-        assert page.select_one('input[checked]')['value'] == displayed_consent
+    assert normalize_spaces(
+        page.select_one('label[for=volume_sms]').text
+    ) == 'How many text messages do you expect to send in the next year?'
+    assert normalize_spaces(
+        page.select_one('#volume_sms-hint').text
+    ) == 'For example, 50,000'
+    assert page.select_one('#volume_sms').get('value') == '0'
 
 
-@pytest.mark.parametrize('consent_to_research, expected_persisted_consent_to_research', (
-    ('yes', True),
-    ('no', False),
-))
 def test_should_show_persist_estimated_volumes(
     client_request,
     mock_update_service,
-    consent_to_research,
-    expected_persisted_consent_to_research,
 ):
     client_request.post(
         'main.estimate_usage',
         service_id=SERVICE_ONE_ID,
         _data={
-            'volume_email': '1,234,567',
-            'volume_sms': '',
-            'volume_letter': '098',
-            'consent_to_research': consent_to_research,
+            'volume_sms': '123',
         },
         _expected_status=302,
         _expected_redirect=url_for(
@@ -1521,33 +1399,25 @@ def test_should_show_persist_estimated_volumes(
     )
     mock_update_service.assert_called_once_with(
         SERVICE_ONE_ID,
-        volume_email=1234567,
-        volume_sms=0,
-        volume_letter=98,
-        consent_to_research=expected_persisted_consent_to_research,
+        volume_sms=123,
+        consent_to_research=False,
     )
 
 
 @pytest.mark.parametrize('data, error_selector, expected_error_message', (
     (
         {
-            'volume_email': '1234',
             'volume_sms': '2000000001',
-            'volume_letter': '9876',
-            'consent_to_research': 'yes',
         },
         '#volume_sms-error',
         'Number of text messages must be 2,000,000,000 or less'
     ),
     (
         {
-            'volume_email': '1 234',
             'volume_sms': '0',
-            'volume_letter': '9876',
-            'consent_to_research': '',
         },
-        '[data-error-label="consent_to_research"]',
-        'Select yes or no'
+        '.banner-dangerous',
+        'Enter the number of messages you expect to send in the next year'
     ),
 ))
 def test_should_error_if_bad_estimations_given(
@@ -1575,16 +1445,11 @@ def test_should_error_if_all_volumes_zero(
         'main.estimate_usage',
         service_id=SERVICE_ONE_ID,
         _data={
-            'volume_email': '',
             'volume_sms': '0',
-            'volume_letter': '0,00 0',
-            'consent_to_research': 'yes',
         },
         _expected_status=200,
     )
-    assert page.select('input[type=text]')[0].get('value') is None
-    assert page.select('input[type=text]')[1]['value'] == '0'
-    assert page.select('input[type=text]')[2]['value'] == '0,00 0'
+    assert page.select('input[type=text]')[0].get('value') == '0'
     assert normalize_spaces(page.select_one('.banner-dangerous').text) == (
         'Enter the number of messages you expect to send in the next year'
     )
@@ -1599,32 +1464,25 @@ def test_should_not_default_to_zero_if_some_fields_dont_validate(
         'main.estimate_usage',
         service_id=SERVICE_ONE_ID,
         _data={
-            'volume_email': '1234',
             'volume_sms': '',
-            'volume_letter': 'aaaaaaaaaaaaa',
-            'consent_to_research': 'yes',
         },
         _expected_status=200,
     )
-    assert page.select('input[type=text]')[0]['value'] == '1234'
-    assert page.select('input[type=text]')[1].get('value') is None
-    assert page.select('input[type=text]')[2]['value'] == 'aaaaaaaaaaaaa'
-    assert normalize_spaces(
-        page.select_one('#volume_letter-error').text
-    ) == 'Error: Enter the number of letters you expect to send'
+    assert page.select('input[type=text]')[0].get('value') is None
     assert mock_update_service.called is False
 
 
-def test_non_gov_users_cant_request_to_go_live(
+def test_non_gov_users_can_request_to_go_live(
     client_request,
     api_nongov_user_active,
     mock_get_organisations,
+    mock_update_service
 ):
     client_request.login(api_nongov_user_active)
     client_request.post(
         'main.request_to_go_live',
         service_id=SERVICE_ONE_ID,
-        _expected_status=403,
+        _expected_status=302,
     )
 
 
@@ -1651,6 +1509,7 @@ def test_non_gov_users_cant_request_to_go_live(
     ),
 ))
 @freeze_time("2012-12-21 13:12:12.12354")
+@pytest.mark.skip(reason='Zendesk is disabled')
 def test_should_redirect_after_request_to_go_live(
     client_request,
     mocker,
@@ -1732,6 +1591,7 @@ def test_should_redirect_after_request_to_go_live(
     )
 
 
+@pytest.mark.skip(reason='Zendesk is disabled')
 def test_request_to_go_live_displays_go_live_notes_in_zendesk_ticket(
     client_request,
     mocker,
@@ -1789,6 +1649,7 @@ def test_request_to_go_live_displays_go_live_notes_in_zendesk_ticket(
     )
 
 
+@pytest.mark.skip(reason='Zendesk is disabled')
 def test_should_be_able_to_request_to_go_live_with_no_organisation(
     client_request,
     mocker,
@@ -1863,13 +1724,12 @@ def test_should_be_able_to_request_to_go_live_with_no_organisation(
             True,
             True,
             1, 0, 1,
-            'No',
+            'Yes',
             True,
             [
                 'notify_action',
                 'notify_go_live',
-                'notify_go_live_incomplete_checklist',
-                'notify_go_live_incomplete_email_reply_to',
+                'notify_go_live_complete',
             ],
         ),
         (  # Just sending SMS
@@ -2150,7 +2010,6 @@ def test_and_more_hint_appears_on_settings_with_more_than_just_a_single_sender(
         "Reply-to email addresses test@example.com …and 2 more Manage reply-to email addresses"
     assert get_row(page, 'Text message senders') == \
         "Text message senders Example …and 2 more Manage text message senders"
-    assert get_row(page, 'Sender addresses') == "Sender addresses 1 Example Street …and 2 more Manage sender addresses"
 
 
 @pytest.mark.parametrize('sender_list_page, index, expected_output', [
@@ -3183,28 +3042,6 @@ def test_inbound_sms_sender_is_not_editable(
         assert normalize_spaces(
             page.select_one('form[method="post"] p').text
         ) == "GOVUK This phone number receives replies and cannot be changed"
-
-
-def test_shows_research_mode_indicator(
-    client_request,
-    service_one,
-    mocker,
-    single_reply_to_email_address,
-    single_letter_contact_block,
-    mock_get_organisation,
-    single_sms_sender,
-    mock_get_service_settings_page_common,
-):
-    service_one['research_mode'] = True
-    mocker.patch('app.service_api_client.update_service', return_value=service_one)
-
-    page = client_request.get(
-        'main.service_settings',
-        service_id=SERVICE_ONE_ID,
-    )
-
-    element = page.find('span', {"id": "research-mode"})
-    assert element.text == 'research mode'
 
 
 def test_does_not_show_research_mode_indicator(
@@ -4806,8 +4643,6 @@ def test_show_email_branding_request_page_when_email_branding_is_set(
         )
         for radio in page.select('input[type=radio]')
     ] == [
-        ('govuk', 'GOV.UK'),
-        ('govuk_and_org', 'GOV.UK and Test Organisation'),
         ('organisation', 'Test Organisation'),
         ('something_else', 'Something else'),
     ]
@@ -4944,6 +4779,7 @@ def test_show_branding_request_page_when_branding_is_same_as_org(
     (None, 'Can’t tell (domain is user.gov.uk)'),
     ('Test Organisation', 'Test Organisation'),
 ))
+@pytest.mark.skip(reason='Zendesk is disabled')
 def test_submit_email_branding_request(
     client_request,
     service_one,
@@ -5027,6 +4863,7 @@ def test_submit_email_branding_request(
     (None, 'Can’t tell (domain is user.gov.uk)'),
     ('Test Organisation', 'Test Organisation'),
 ))
+@pytest.mark.skip(reason='Zendesk is disabled')
 def test_submit_letter_branding_request(
     client_request,
     service_one,
@@ -5091,6 +4928,7 @@ def test_submit_letter_branding_request(
     None,
     TEMPLATE_ONE_ID
 ])
+@pytest.mark.skip(reason='Zendesk is disabled')
 def test_submit_letter_branding_request_redirects_if_from_template_is_set(
     client_request,
     service_one,
@@ -5126,6 +4964,7 @@ def test_submit_letter_branding_request_redirects_if_from_template_is_set(
 @pytest.mark.parametrize('branding_type,current_branding', [
     ('email', 'GOV.UK'), ('letter', 'no')
 ])
+@pytest.mark.skip(reason='Zendesk is disabled')
 def test_submit_branding_when_something_else_is_only_option(
     client_request,
     service_one,

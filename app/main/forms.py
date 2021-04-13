@@ -1555,6 +1555,7 @@ class EstimateUsageForm(StripWhitespaceForm):
 
     def validate(self, *args, **kwargs):
         if self.volume_sms.data == 0:
+            self.at_least_one_volume_filled = False
             return False
 
         return super().validate(*args, **kwargs)
