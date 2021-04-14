@@ -236,7 +236,7 @@ def test_should_show_job_without_notifications(
         'No messages to show yet…'
     )),
     # Created a while ago, started just within the last 24h
-    (datetime(2020, 1, 1, 0, 0, 0), datetime(2020, 1, 9, 1, 0, 1), (
+    (datetime(2020, 1, 1, 0, 0, 0), datetime(2020, 1, 9, 3, 0, 1), (
         'No messages to show yet…'
     )),
     # Created a while ago, started exactly 24h ago
