@@ -97,34 +97,10 @@ def test_process_register_returns_200_when_mobile_number_is_invalid(
     assert 'Must not contain letters or symbols' in response.get_data(as_text=True)
 
 
-def test_should_return_200_when_email_is_not_gov_uk(
-    client_request,
-    mock_get_organisations,
-):
-    client_request.logout()
-    page = client_request.post(
-        'main.register',
-        _data={
-            'name': 'Firstname Lastname',
-            'email_address': 'bad_mobile@example.not.right',
-            'mobile_number': '07900900123',
-            'password': 'validPassword!'
-        },
-        _expected_status=200,
-    )
-
-    assert 'Enter a public sector email address or find out who can use Notify' in normalize_spaces(
-        page.select_one('.govuk-error-message').text
-    )
-    assert page.select_one('.govuk-error-message a')['href'] == url_for(
-        'main.who_can_use_notify'
-    )
-
-
 @pytest.mark.parametrize('email_address', (
     'notfound@example.gov.uk',
     'example@lsquo.net',
-    pytest.param('example@ellipsis.com', marks=pytest.mark.xfail(raises=AssertionError)),
+    pytest.param('example@ellipsis.com', marks=pytest.mark.xfail(raises=AssertionError, strict=False)),
 ))
 def test_should_add_user_details_to_session(
     client,

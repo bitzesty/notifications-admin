@@ -92,16 +92,9 @@ def test_page_to_create_new_organisation(
         for input in page.select('input')
     ] == [
         ('text', 'name', None),
-        ('radio', 'organisation_type', 'central'),
-        ('radio', 'organisation_type', 'local'),
-        ('radio', 'organisation_type', 'nhs_central'),
-        ('radio', 'organisation_type', 'nhs_local'),
-        ('radio', 'organisation_type', 'nhs_gp'),
-        ('radio', 'organisation_type', 'emergency_service'),
-        ('radio', 'organisation_type', 'school_or_college'),
+        ('radio', 'organisation_type', 'charity'),
+        ('radio', 'organisation_type', 'community_interest'),
         ('radio', 'organisation_type', 'other'),
-        ('radio', 'crown_status', 'crown'),
-        ('radio', 'crown_status', 'non-crown'),
         ('hidden', 'csrf_token', ANY),
     ]
 
@@ -121,8 +114,7 @@ def test_create_new_organisation(
         '.add_organisation',
         _data={
             'name': 'new name',
-            'organisation_type': 'local',
-            'crown_status': 'non-crown',
+            'organisation_type': 'other'
         },
         _expected_redirect=url_for(
             'main.organisation_settings',
@@ -133,7 +125,7 @@ def test_create_new_organisation(
 
     mock_create_organisation.assert_called_once_with(
         name='new name',
-        organisation_type='local',
+        organisation_type='other',
         crown=False,
         agreement_signed=False,
     )
@@ -159,7 +151,6 @@ def test_create_new_organisation_validates(
     ] == [
         ('name', 'Error: Cannot be empty'),
         ('organisation_type', 'Error: Select the type of organisation'),
-        ('crown_status', 'Error: Select whether this organisation is a crown body'),
     ]
     assert mock_create_organisation.called is False
 
@@ -185,8 +176,7 @@ def test_create_new_organisation_fails_with_incorrect_input(
         '.add_organisation',
         _data={
             'name': name,
-            'organisation_type': 'local',
-            'crown_status': 'non-crown',
+            'organisation_type': 'other',
         },
         _expected_status=200,
     )
@@ -687,8 +677,7 @@ def test_organisation_settings_for_platform_admin(
     expected_rows = [
         'Label Value Action',
         'Name Test organisation Change',
-        'Sector Central government Change',
-        'Crown organisation Yes Change',
+        'Sector Charity Change',
         'Data sharing and financial agreement Not signed Change',
         'Request to go live notes None Change',
         'Default email branding GOV.UK Change',
@@ -711,25 +700,11 @@ def test_organisation_settings_for_platform_admin(
     (
         '.edit_organisation_type',
         (
-            {'value': 'central', 'label': 'Central government'},
-            {'value': 'local', 'label': 'Local government'},
-            {'value': 'nhs_central', 'label': 'NHS – central government agency or public body'},
-            {'value': 'nhs_local', 'label': 'NHS Trust or Clinical Commissioning Group'},
-            {'value': 'nhs_gp', 'label': 'GP practice'},
-            {'value': 'emergency_service', 'label': 'Emergency service'},
-            {'value': 'school_or_college', 'label': 'School or college'},
+            {'value': 'charity', 'label': 'Charity'},
+            {'value': 'community_interest', 'label': 'Community Interest Company'},
             {'value': 'other', 'label': 'Other'},
         ),
-        'central',
-    ),
-    (
-        '.edit_organisation_crown_status',
-        (
-            {'value': 'crown', 'label': 'Yes'},
-            {'value': 'non-crown', 'label': 'No'},
-            {'value': 'unknown', 'label': 'Not sure'},
-        ),
-        'crown',
+        'charity',
     ),
     (
         '.edit_organisation_agreement',
@@ -797,33 +772,18 @@ def test_view_organisation_settings(
 @pytest.mark.parametrize('endpoint, post_data, expected_persisted', (
     (
         '.edit_organisation_type',
-        {'organisation_type': 'central'},
-        {'cached_service_ids': [], 'organisation_type': 'central'},
+        {'organisation_type': 'charity'},
+        {'cached_service_ids': [], 'organisation_type': 'charity'},
     ),
     (
         '.edit_organisation_type',
-        {'organisation_type': 'local'},
-        {'cached_service_ids': [], 'organisation_type': 'local'},
+        {'organisation_type': 'other'},
+        {'cached_service_ids': [], 'organisation_type': 'other'},
     ),
     (
         '.edit_organisation_type',
-        {'organisation_type': 'nhs_local'},
-        {'cached_service_ids': [], 'organisation_type': 'nhs_local'},
-    ),
-    (
-        '.edit_organisation_crown_status',
-        {'crown_status': 'crown'},
-        {'crown': True},
-    ),
-    (
-        '.edit_organisation_crown_status',
-        {'crown_status': 'non-crown'},
-        {'crown': False},
-    ),
-    (
-        '.edit_organisation_crown_status',
-        {'crown_status': 'unknown'},
-        {'crown': None},
+        {'organisation_type': 'community_interest'},
+        {'cached_service_ids': [], 'organisation_type': 'community_interest'},
     ),
     (
         '.edit_organisation_agreement',
@@ -896,7 +856,7 @@ def test_update_organisation_sector_sends_service_id_data_to_api_client(
     client_request.post(
         'main.edit_organisation_type',
         org_id=organisation_one['id'],
-        _data={'organisation_type': 'central'},
+        _data={'organisation_type': 'other'},
         _expected_status=302,
         _expected_redirect=url_for(
             'main.organisation_settings',
@@ -908,7 +868,7 @@ def test_update_organisation_sector_sends_service_id_data_to_api_client(
     mock_update_organisation.assert_called_once_with(
         organisation_one['id'],
         cached_service_ids=['12345', '67890', SERVICE_ONE_ID],
-        organisation_type='central'
+        organisation_type='other'
     )
 
 

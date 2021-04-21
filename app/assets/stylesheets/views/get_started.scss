@@ -9,9 +9,9 @@
     margin: govuk-spacing(8) 0 0 0;
     position: relative;
 
-    &:before {
+    &::before {
       @include bold-24;
-      content: counter(get-started-counter) ".";
+      content: counter(get-started-counter) '.';
       position: absolute;
       top: 5px;
       left: 0;

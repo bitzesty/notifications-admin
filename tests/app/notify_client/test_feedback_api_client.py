@@ -11,7 +11,7 @@ def test_create_broadcast_message(mocker):
         message='msg'
     )
     mock_post.assert_called_once_with(
-        '/feedbacks',
+        url='/feedbacks',
         data={
             'email': 'test@gov.uk',
             'name': 'Name',

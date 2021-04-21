@@ -598,7 +598,7 @@ def test_get_letter_validation_error_for_known_errors(
     ('2019-11-16T11:35:21.726132Z', False),
     ('2019-11-16T11:35:21+0000', False),
 ])
-@freeze_time('2020-02-14T12:00:00')
+@freeze_time('2020-02-14T14:00:00')
 def test_is_less_than_days_ago(date_from_db, expected_result):
     assert is_less_than_days_ago(date_from_db, 90) == expected_result
 

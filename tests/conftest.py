@@ -573,6 +573,7 @@ def mock_get_live_service(mocker, api_user_active):
 def mock_create_service(mocker):
     def _create(
         service_name,
+        service_description,
         organisation_type,
         message_limit,
         restricted,
@@ -591,6 +592,7 @@ def mock_create_service(mocker):
 def mock_create_duplicate_service(mocker):
     def _create(
         service_name,
+        service_description,
         organisation_type,
         message_limit,
         restricted,

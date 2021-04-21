@@ -27,7 +27,6 @@ from app import (
     service_api_client,
     user_api_client,
 )
-from app.extensions import zendesk_client
 from app.formatters import email_safe
 from app.main import main
 from app.main.forms import (
@@ -158,13 +157,7 @@ def service_name_change_confirm(service_id):
 def estimate_usage(service_id):
 
     form = EstimateUsageForm(
-        volume_email=current_service.volume_email,
         volume_sms=current_service.volume_sms,
-        volume_letter=current_service.volume_letter,
-        consent_to_research={
-            True: 'yes',
-            False: 'no',
-        }.get(current_service.consent_to_research),
     )
 
     if form.validate_on_submit():
@@ -1065,32 +1058,32 @@ def branding_request(service_id, branding_type):
     elif branding_type == "letter":
         branding_name = current_service.letter_branding_name
     if form.validate_on_submit():
-        zendesk_client.create_ticket(
-            subject='{} branding request - {}'.format(branding_type.capitalize(), current_service.name),
-            message=(
-                'Organisation: {organisation}\n'
-                'Service: {service_name}\n'
-                '{dashboard_url}\n'
-                '\n---'
-                '\nCurrent branding: {current_branding}'
-                '\nBranding requested: {branding_requested}'
-                '{new_paragraph}'
-                '{detail}'
-                '\n'
-            ).format(
-                organisation=current_service.organisation.as_info_for_branding_request(current_user.email_domain),
-                service_name=current_service.name,
-                dashboard_url=url_for('main.service_dashboard', service_id=current_service.id, _external=True),
-                current_branding=branding_name,
-                branding_requested=dict(form.options.choices)[form.options.data],
-                new_paragraph='\n\n' if form.something_else.data else '',
-                detail=form.something_else.data or ''
-            ),
-            ticket_type=zendesk_client.TYPE_QUESTION,
-            user_email=current_user.email_address,
-            user_name=current_user.name,
-            tags=['notify_action', 'notify_branding'],
-        )
+        # zendesk_client.create_ticket(
+        #     subject='{} branding request - {}'.format(branding_type.capitalize(), current_service.name),
+        #     message=(
+        #         'Organisation: {organisation}\n'
+        #         'Service: {service_name}\n'
+        #         '{dashboard_url}\n'
+        #         '\n---'
+        #         '\nCurrent branding: {current_branding}'
+        #         '\nBranding requested: {branding_requested}'
+        #         '{new_paragraph}'
+        #         '{detail}'
+        #         '\n'
+        #     ).format(
+        #         organisation=current_service.organisation.as_info_for_branding_request(current_user.email_domain),
+        #         service_name=current_service.name,
+        #         dashboard_url=url_for('main.service_dashboard', service_id=current_service.id, _external=True),
+        #         current_branding=branding_name,
+        #         branding_requested=dict(form.options.choices)[form.options.data],
+        #         new_paragraph='\n\n' if form.something_else.data else '',
+        #         detail=form.something_else.data or ''
+        #     ),
+        #     ticket_type=zendesk_client.TYPE_QUESTION,
+        #     user_email=current_user.email_address,
+        #     user_name=current_user.name,
+        #     tags=['notify_action', 'notify_branding'],
+        # )
         flash((
             'Thanks for your branding request. We’ll get back to you '
             'within one working day.'

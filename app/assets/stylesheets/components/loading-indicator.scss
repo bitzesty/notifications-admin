@@ -5,11 +5,11 @@
 }
 
 .loading-indicator {
-  &:after {
+  &::after {
     overflow: hidden;
     display: inline-block;
     vertical-align: bottom;
-    animation: ellipsis steps(4,end) 1.5s infinite;
+    animation: ellipsis steps(4, end) 1.5s infinite;
     content: "\2026"; // ellipsis
     width: 0;
   }

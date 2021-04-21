@@ -11,7 +11,7 @@
   &:focus {
 
     border-color: transparent;
-    /* override default focus style to increase top yellow box-shadow */
+    // override default focus style to increase top yellow box-shadow
     box-shadow: 0 -15px $govuk-focus-colour, 0 4px $govuk-focus-text-colour;
 
     span {
@@ -25,7 +25,7 @@
   span {
     position: relative;
     top: -11px;
-    outline: 10px solid white;
+    outline: 10px solid $white;
     background: $white;
     display: inline-block;
     border-bottom: 1px solid $light-blue;

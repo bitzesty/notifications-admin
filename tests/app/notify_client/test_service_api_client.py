@@ -72,7 +72,8 @@ def test_client_creates_service_with_correct_data(
 
     client.create_service(
         'My first service',
-        'central_government',
+        'Service description',
+        'charity',
         1,
         True,
         fake_uuid,
@@ -86,8 +87,9 @@ def test_client_creates_service_with_correct_data(
             active=True,
             # ‘service_name’ argument is coerced to ‘name’
             name='My first service',
+            description='Service description',
             # The rest pass through with the same names
-            organisation_type='central_government',
+            organisation_type='charity',
             message_limit=1,
             restricted=True,
             user_id=fake_uuid,

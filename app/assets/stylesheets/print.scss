@@ -1,17 +1,17 @@
 // sass-lint:disable no-important
 // set asset URL root to match that of application
-$govuk-assets-path: "/static/";
+$govuk-assets-path: '/static/';
 
-@import "settings/all";
-@import "tools/all";
-@import "helpers/all";
+@import 'settings/all';
+@import 'tools/all';
+@import 'helpers/all';
 
-@import "core/all";
-@import "objects/all";
+@import 'core/all';
+@import 'objects/all';
 
 * {
   background: transparent;
-  color: black;
+  color: #000000;
   text-shadow: none;
   filter: none;
   -ms-filter: none;
@@ -29,16 +29,16 @@ a:visited {
   word-wrap: break-word;
 }
 
-a[href^="/"]:after,
-a[href^="http://"]:after,
-a[href^="https://"]:after {
-  content: " (" attr(href) ")";
+a[href^='/']::after,
+a[href^='http://']::after,
+a[href^='https://']::after {
+  content: ' (' attr(href) ')';
   font-size: 90%;
 }
 
-a[href^="javascript:"]:after,
-a[href^="#"]:after {
-  content: "";
+a[href^='javascript:']::after,
+a[href^='#']::after {
+  content: '';
 }
 
 img {
@@ -46,7 +46,7 @@ img {
 }
 
 select {
-  background: white;
+  background: #FFFFFF;
 }
 
 .govuk-header {
@@ -61,8 +61,8 @@ select {
         text-decoration: none;
       }
 
-      &:after {
-        content: "";
+      &::after {
+        content: '';
       }
     }
 

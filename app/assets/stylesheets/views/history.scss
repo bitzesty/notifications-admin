@@ -38,9 +38,9 @@ $item-top-padding: govuk-spacing(3);
     margin-bottom: 35px;
     height: 35px;
 
-    &:before,
-    &:after {
-      content: "";
+    &::before,
+    &::after {
+      content: '';
       position: absolute;
       bottom: -6px;
       left: 0;
@@ -49,7 +49,7 @@ $item-top-padding: govuk-spacing(3);
       background: $black;
     }
 
-    &:after {
+    &::after {
       left: auto;
       right: 0;
     }

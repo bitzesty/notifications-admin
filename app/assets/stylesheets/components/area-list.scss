@@ -14,8 +14,8 @@
 
       font-size: 0;
 
-      &:before {
-        content: "×";
+      &::before {
+        content: '×';
         display: block;
         position: absolute;
         top: -2px;
@@ -26,7 +26,7 @@
         color: $white;
         box-shadow: -2px 0 0 0 $black, inset 1px 0 0 0 rgba($white, 0.1);
         border: 2px solid $govuk-blue;
-        border-left: none;
+        border-left: 0;
         font-size: 24px;
         font-weight: normal;
         line-height: 40px;
@@ -37,7 +37,7 @@
       &:hover,
       &:focus {
 
-        &:before {
+        &::before {
           color: $light-blue-25;
         }
 
@@ -47,7 +47,7 @@
 
         outline: none;
 
-        &:before {
+        &::before {
           background: $govuk-focus-colour;
           color: $black;
           border-color: $black;
@@ -97,8 +97,8 @@
   padding-left: govuk-spacing(8);
   line-height: govuk-spacing(7);
 
-  &:before {
-    content: "";
+  &::before {
+    content: '';
     display: block;
     position: absolute;
     top: 3px;
@@ -111,14 +111,14 @@
   }
 
   &--certain {
-    &:before {
+    &::before {
       border: 2px solid $black;
       background: $light-blue-50;
     }
   }
 
   &--likely {
-    &:before {
+    &::before {
       padding: 1px;
       border: 2px dashed $govuk-blue;
       border-image: file-url('dashed-border-govuk-blue.svg') 4 round;
@@ -130,7 +130,8 @@
     padding-left: govuk-spacing(1);
     margin-right: 0;
     float: right;
-    &:before {
+
+    &::before {
       display: none;
     }
   }
@@ -148,7 +149,7 @@
 
   .govuk-details__text {
     padding: 0;
-    border: none;
+    border: 0;
     border-bottom: 1px solid $border-colour;
     margin-top: -1px;
   }

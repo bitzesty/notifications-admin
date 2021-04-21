@@ -37,11 +37,7 @@ def test_non_logged_in_user_can_see_homepage(
         'Services '
         '9,999 services '
         'Organisations '
-        '111 organisations '
-        'See the list of services and organisations.'
-    )
-    assert page.select_one('#whos-using-notify a')['href'] == (
-        'https://www.gov.uk/performance/govuk-notify/government-services'
+        '111 organisations'
     )
 
 
@@ -181,13 +177,24 @@ def test_old_static_pages_redirect(
     )
 
 
-def test_message_status_page_contains_message_status_ids(client_request):
+def test_delivery_status_page_contains_statuses(client_request):
     # The 'email-statuses' and 'sms-statuses' id are linked to when we display a message status,
     # so this test ensures we don't accidentally remove them
     page = client_request.get('main.message_status')
 
-    assert page.find(id='email-statuses')
-    assert page.find(id='sms-statuses')
+    assert normalize_spaces(page.select_one('h1.heading-large').text) == (
+        'Delivery status'
+    )
+
+    statuses = [
+        'Sending', 'Sent to an international number', 'Delivered', 'Not delivered',
+        'Phone not accepting messages right now', 'Technical failure'
+    ]
+
+    for index, td in enumerate(
+        page.select('tr.table-row > td:first-child')
+    ):
+        assert normalize_spaces(td.text) == statuses[index]
 
 
 def test_old_using_notify_page(client_request):
@@ -227,6 +234,7 @@ def test_css_is_served_from_correct_path(client_request):
         page.select('link[rel=stylesheet]')
     ):
         assert link['href'].startswith([
+            'https://fonts.googleapis.com/css2?',
             'https://static.example.com/stylesheets/main.css?',
             'https://static.example.com/stylesheets/print.css?',
         ][index])
@@ -236,9 +244,9 @@ def test_resources_that_use_asset_path_variable_have_correct_path(client_request
 
     page = client_request.get('main.documentation')  # easy static page
 
-    logo_svg_fallback = page.select_one('.govuk-header__logotype-crown-fallback-image')
+    logo_svg_fallback = page.select_one('.govuk-header__logotype img')
 
-    assert logo_svg_fallback['src'].startswith('https://static.example.com/images/govuk-logotype-crown.png')
+    assert logo_svg_fallback['src'].startswith('/static/images/catalyst_logo.svg')
 
 
 @pytest.mark.parametrize('extra_args, email_branding_retrieved', (
@@ -331,19 +339,3 @@ def test_letter_spec_redirect_with_non_logged_in_user(client_request):
             '/documentation/images/notify-pdf-letter-spec-v2.4.pdf'
         ),
     )
-
-
-def test_font_preload(
-    client_request,
-    mock_get_service_and_organisation_counts,
-):
-    client_request.logout()
-    page = client_request.get('main.index', _test_page_title=False)
-
-    preload_tags = page.select('link[rel=preload][as=font][type="font/woff2"][crossorigin]')
-
-    assert len(preload_tags) == 4, 'Run `npm run build` to copy fonts into app/static/fonts/'
-
-    for element in preload_tags:
-        assert element['href'].startswith('https://static.example.com/fonts/')
-        assert element['href'].endswith('.woff2')

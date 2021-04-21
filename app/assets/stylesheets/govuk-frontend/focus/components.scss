@@ -136,7 +136,7 @@ $govuk-radios-focus-width: $govuk-focus-width + 1px;
 
 // ( ) Radio ring
 .multiple-choice [type=radio] + label::before {
-  content: "";
+  content: '';
   box-sizing: border-box;
   position: absolute;
   top: 0;
@@ -155,7 +155,7 @@ $govuk-radios-focus-width: $govuk-focus-width + 1px;
 // We create the 'button' entirely out of 'border' so that they remain
 // 'filled' even when colours are overridden in the browser.
 .multiple-choice [type=radio] + label::after {
-  content: "";
+  content: '';
 
   position: absolute;
   top: govuk-spacing(2);

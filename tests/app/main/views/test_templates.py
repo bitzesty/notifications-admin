@@ -373,15 +373,13 @@ def test_should_show_live_search_if_service_has_lots_of_folders(
     ], [
         'Broadcast',
     ]),
-    pytest.param(['email', 'sms', 'letter'], [
+    pytest.param(['email', 'sms'], [
         'email',
         'sms',
-        'letter',
         'copy-existing',
     ], [
         'Email',
         'Text message',
-        'Letter',
         'Copy an existing template',
     ]),
 ))

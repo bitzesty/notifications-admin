@@ -1,5 +1,5 @@
 from functools import partial
-from unittest.mock import ANY, PropertyMock
+from unittest.mock import PropertyMock
 
 import pytest
 from bs4 import BeautifulSoup, element
@@ -49,7 +49,7 @@ def test_get_support_index_page_when_signed_out(
     assert normalize_spaces(
         page.select_one('form label[for=who-0]').text
     ) == (
-        'I work in the public sector and need to send emails, text messages or letters'
+        'I work in the charity sector and need to text messages'
     )
     assert page.select_one('form input#who-0')['value'] == 'public-sector'
     assert normalize_spaces(
@@ -155,55 +155,10 @@ def test_passed_non_logged_in_user_details_through_flow(client, mocker, ticket_t
         _external=True,
     )
     mock_post.assert_called_with(
-        message='blah\n',
-        email='rip@gmail.com',
-        name='Steve Irwin'
+        'rip@gmail.com',
+        'Steve Irwin',
+        'blah\n',
     )
-
-
-@freeze_time("2016-12-12 12:00:00.000000")
-@pytest.mark.parametrize('data', [
-    {'feedback': 'blah'},
-    {'feedback': 'blah', 'name': 'Ignored', 'email_address': 'ignored@email.com'}
-])
-@pytest.mark.parametrize('ticket_type', [PROBLEM_TICKET_TYPE, QUESTION_TICKET_TYPE])
-def test_passes_user_details_through_flow(
-    client_request,
-    mock_get_non_empty_organisations_and_services_for_user,
-    mocker,
-    ticket_type,
-    data
-):
-    mock_post = mocker.patch('app.main.views.feedback.feedback_api_client.create_feedback')
-
-    client_request.post(
-        'main.feedback',
-        ticket_type=ticket_type,
-        _data=data,
-        _expected_status=302,
-        _expected_redirect=url_for(
-            'main.thanks',
-            email_address_provided=True,
-            out_of_hours_emergency=False,
-            _external=True,
-        ),
-    )
-
-    mock_post.assert_called_with(
-        message=ANY,
-        email='test@user.gov.uk',
-        name='Test User'
-    )
-    assert mock_post.call_args[1]['message'] == '\n'.join([
-        'blah',
-        'Service: "service one"',
-        url_for(
-            'main.service_dashboard',
-            service_id='596364a0-858e-42c8-9062-a8fe822260eb',
-            _external=True
-        ),
-        ''
-    ])
 
 
 @freeze_time('2016-12-12 12:00:00.000000')
@@ -288,7 +243,7 @@ def test_urgency(
         'main.feedback',
         ticket_type=ticket_type,
         severe=severe,
-        _data={'feedback': 'blah', 'email_address': 'test@example.com'},
+        _data={'feedback': 'blah', 'email_address': 'test@example.com', 'name': 'Test'},
         _expected_status=302,
         _expected_redirect=url_for(
             'main.thanks',
@@ -297,7 +252,7 @@ def test_urgency(
             _external=True,
         ),
     )
-    assert mock_post.call_args[1]['p1'] == is_out_of_hours_emergency
+    assert mock_post.call_args[0][0] == 'test@user.gov.uk'
 
 
 ids, params = zip(*[

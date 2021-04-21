@@ -19,7 +19,7 @@ $govuk-checkboxes-size: 40px;
     background-image: file-url('folder-black.svg');
     background-repeat: no-repeat;
     background-size: 39px auto;
-    background-position: 0px 4px;
+    background-position: 0 4px;
   }
 
 }
@@ -38,8 +38,8 @@ $govuk-checkboxes-size: 40px;
     float: none;
     position: relative;
 
-    &:before {
-      content: "";
+    &::before {
+      content: '';
       position: absolute;
       bottom: 0;
       left: $border-indent;
@@ -82,8 +82,8 @@ $govuk-checkboxes-size: 40px;
   margin-bottom: govuk-spacing(1) * -1;
   padding-left: govuk-spacing(2) + 2;
 
-  &:before {
-    content: "";
+  &::before {
+    content: '';
     position: absolute;
     bottom: 0;
     left: $border-indent * -1;

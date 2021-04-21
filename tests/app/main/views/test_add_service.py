@@ -39,25 +39,15 @@ def test_get_should_render_add_service_template(
     assert [
         label.text.strip() for label in page.select('.govuk-radios__item label')
     ] == [
-        'Central government',
-        'Local government',
-        'NHS – central government agency or public body',
-        'NHS Trust or Clinical Commissioning Group',
-        'GP practice',
-        'Emergency service',
-        'School or college',
+        'Charity',
+        'Community Interest Company',
         'Other',
     ]
     assert [
         radio['value'] for radio in page.select('.govuk-radios__item input')
     ] == [
-        'central',
-        'local',
-        'nhs_central',
-        'nhs_local',
-        'nhs_gp',
-        'emergency_service',
-        'school_or_college',
+        'charity',
+        'community_interest',
         'other',
     ]
 
@@ -93,27 +83,17 @@ def test_show_different_page_if_user_org_type_is_local(
 
 
 @pytest.mark.parametrize('email_address', (
-    # User’s email address doesn’t matter when the organisation is known
+    # User’s email address doesn't matter when the organisation is known
     'test@example.gov.uk',
     'test@example.nhs.uk',
 ))
 @pytest.mark.parametrize('inherited, posted, persisted, sms_limit', (
-    (None, 'central', 'central', 250000),
-    (None, 'nhs_central', 'nhs_central', 250000),
-    (None, 'nhs_gp', 'nhs_gp', 25000),
-    (None, 'nhs_local', 'nhs_local', 25000),
-    (None, 'local', 'local', 25000),
-    (None, 'emergency_service', 'emergency_service', 25000),
-    (None, 'school_or_college', 'school_or_college', 25000),
+    (None, 'charity', 'charity', 25000),
+    ('charity', None, 'charity', 25000),
+    (None, 'community_interest', 'community_interest', 25000),
+    ('community_interest', None, 'community_interest', 25000),
     (None, 'other', 'other', 25000),
-    ('central', None, 'central', 250000),
-    ('nhs_central', None, 'nhs_central', 250000),
-    ('nhs_local', None, 'nhs_local', 25000),
-    ('local', None, 'local', 25000),
-    ('emergency_service', None, 'emergency_service', 25000),
-    ('school_or_college', None, 'school_or_college', 25000),
-    ('other', None, 'other', 25000),
-    ('central', 'local', 'central', 250000),
+    ('other', None, 'other', 25000)
 ))
 def test_should_add_service_and_redirect_to_tour_when_no_services(
     mocker,
@@ -140,6 +120,7 @@ def test_should_add_service_and_redirect_to_tour_when_no_services(
         'main.add_service',
         _data={
             'name': 'testing the post',
+            'service_description': 'description',
             'organisation_type': posted,
         },
         _expected_status=302,
@@ -153,6 +134,7 @@ def test_should_add_service_and_redirect_to_tour_when_no_services(
     assert mock_get_services_with_no_services.called
     mock_create_service.assert_called_once_with(
         service_name='testing the post',
+        service_description='description',
         organisation_type=persisted,
         message_limit=50,
         restricted=True,
@@ -222,29 +204,18 @@ def test_get_should_only_show_nhs_org_types_radios_if_user_has_nhs_email(
     page = client_request.get('main.add_service')
     assert page.select_one('h1').text.strip() == 'About your service'
     assert page.select_one('input[name=name]').get('value') is None
+    assert page.select_one('input[name=service_description]').get('value') is None
     assert [
         label.text.strip() for label in page.select('.govuk-radios__item label')
-    ] == [
-        'NHS – central government agency or public body',
-        'NHS Trust or Clinical Commissioning Group',
-        'GP practice',
-    ]
+    ] == []
     assert [
         radio['value'] for radio in page.select('.govuk-radios__item input')
-    ] == [
-        'nhs_central',
-        'nhs_local',
-        'nhs_gp',
-    ]
+    ] == []
 
 
 @pytest.mark.parametrize('organisation_type, free_allowance', [
-    ('central', 250 * 1000),
-    ('local', 25 * 1000),
-    ('nhs_central', 250 * 1000),
-    ('nhs_local', 25 * 1000),
-    ('school_or_college', 25 * 1000),
-    ('emergency_service', 25 * 1000),
+    ('charity', 25 * 1000),
+    ('community_interest', 25 * 1000),
     ('other', 25 * 1000),
 ])
 def test_should_add_service_and_redirect_to_dashboard_when_existing_service(
@@ -265,6 +236,7 @@ def test_should_add_service_and_redirect_to_dashboard_when_existing_service(
         'main.add_service',
         _data={
             'name': 'testing the post',
+            'service_description': 'description',
             'organisation_type': organisation_type,
         },
         _expected_status=302,
@@ -277,6 +249,7 @@ def test_should_add_service_and_redirect_to_dashboard_when_existing_service(
     assert mock_get_services.called
     mock_create_service.assert_called_once_with(
         service_name='testing the post',
+        service_description='description',
         organisation_type=organisation_type,
         message_limit=app_.config['DEFAULT_SERVICE_LIMIT'],
         restricted=True,
@@ -316,35 +289,38 @@ def test_should_return_form_errors_with_duplicate_service_name_regardless_of_cas
         'main.add_service',
         _data={
             'name': 'SERVICE ONE',
-            'organisation_type': 'central',
+            'service_description': 'description',
+            'organisation_type': 'other',
         },
         _expected_status=200,
     )
     assert 'This service name is already in use' in page.select_one('.govuk-error-message').text.strip()
 
 
-def test_non_government_user_cannot_access_create_service_page(
+def test_non_government_user_can_access_create_service_page(
     client_request,
     mock_get_non_govuser,
     api_nongov_user_active,
     mock_get_organisations,
+    mock_get_organisation_by_domain,
 ):
     assert is_gov_user(api_nongov_user_active['email_address']) is False
     client_request.get(
         'main.add_service',
-        _expected_status=403,
+        _expected_status=200,
     )
 
 
-def test_non_government_user_cannot_create_service(
+def test_non_government_user_can_create_service(
     client_request,
     mock_get_non_govuser,
     api_nongov_user_active,
     mock_get_organisations,
+    mock_get_organisation_by_domain,
 ):
     assert is_gov_user(api_nongov_user_active['email_address']) is False
     client_request.post(
         'main.add_service',
         _data={'name': 'SERVICE TWO'},
-        _expected_status=403,
+        _expected_status=200,
     )

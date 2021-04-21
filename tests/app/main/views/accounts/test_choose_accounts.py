@@ -252,7 +252,7 @@ def test_should_not_show_back_to_service_if_user_doesnt_belong_to_service(
     )
 
     assert normalize_spaces(
-        page.select_one('header + .govuk-width-container').text
+        page.select_one('.govuk-width-container .govuk-grid-column-two-thirds').text
     ).startswith(
         normalize_spaces(expected_page_text)
     )
@@ -267,12 +267,12 @@ def test_should_show_back_to_service_if_user_belongs_to_service(
 ):
     mock_get_service.return_value = service_one
     expected_page_text = (
-        'Test Service   Switch service '
-        ''
         'Dashboard '
         'Templates '
-        'Uploads '
-        'Team members'
+        'Team members '
+        'Usage '
+        'Settings '
+        'API integration '
     )
 
     page = client_request.get(
@@ -283,7 +283,9 @@ def test_should_show_back_to_service_if_user_belongs_to_service(
     )
 
     assert normalize_spaces(
-        page.select_one('header + .govuk-width-container').text
-    ).startswith(
-        normalize_spaces(expected_page_text)
-    )
+        page.select_one('.govuk-width-container .navigation-service').text
+    ) == 'Test Service Switch service'
+
+    assert normalize_spaces(
+        page.select_one('.govuk-width-container nav.navigation').text
+    ) == normalize_spaces(expected_page_text)
