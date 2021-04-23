@@ -19,25 +19,11 @@ def test_non_logged_in_user_can_see_homepage(
     page = BeautifulSoup(response.data.decode('utf-8'), 'html.parser')
 
     assert page.h1.text.strip() == (
-        'Send emails, text messages and letters to your users'
+        'Send text messages to your service users.'
     )
 
     assert page.select_one('a[role=button][draggable=false]')['href'] == url_for(
         'main.register'
-    )
-
-    assert page.select_one('meta[name=description]')['content'].strip() == (
-        'Catalyst Notify lets you send emails, text messages and letters '
-        'to your users. Try it now if you work in central government, a '
-        'local authority, or the NHS.'
-    )
-
-    assert normalize_spaces(page.select_one('#whos-using-notify').text) == (
-        'Who’s using Catalyst Notify '
-        'Services '
-        '9,999 services '
-        'Organisations '
-        '111 organisations'
     )
 
 
