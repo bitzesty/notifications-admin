@@ -99,7 +99,7 @@ def mock_get_service_settings_page_common(
         'Organisation Test organisation Charity Change organisation for service',
         'Rate limit 3,000 per minute Change rate limit',
         'Message limit 1,000 per day Change daily message limit',
-        'Free text message allowance 250,000 per year Change free text message allowance',
+        'Free text message allowance 1,000 per year Change free text message allowance',
         'Email branding GOV.UK Change email branding (admin view)',
         'Letter branding Not set Change letter branding (admin view)',
         'Custom data retention Email – 7 days Change data retention',
@@ -577,7 +577,7 @@ def test_switch_service_to_live(
     )
     mock_update_service.assert_called_with(
         SERVICE_ONE_ID,
-        message_limit=250000,
+        message_limit=1000,
         restricted=False,
         go_live_at="2017-04-01 11:09:00.061258"
     )
@@ -3528,7 +3528,7 @@ def test_should_show_page_to_set_sms_allowance(
 @freeze_time("2017-04-01 11:09:00.061258")
 @pytest.mark.parametrize('given_allowance, expected_api_argument', [
     ('1', 1),
-    ('250000', 250000),
+    ('1000', 1000),
     pytest.param('foo', 'foo', marks=pytest.mark.xfail),
 ])
 def test_should_set_sms_allowance(
@@ -3599,7 +3599,7 @@ def test_should_show_page_to_set_rate_limit(
 ))
 @pytest.mark.parametrize('new_limit, expected_api_argument', [
     ('1', 1),
-    ('250000', 250000),
+    ('1000', 1000),
     pytest.param('foo', 'foo', marks=pytest.mark.xfail),
 ])
 def test_should_set_message_limit(
@@ -3685,7 +3685,7 @@ def test_unknown_channel_404s(
     ),
     (
         'sms',
-        'You have a free allowance of 250,000 text messages each financial year.',
+        'You have a free allowance of 1,000 text messages each financial year.',
         'Send text messages',
         [],
         'False',

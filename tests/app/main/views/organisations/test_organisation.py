@@ -401,10 +401,10 @@ def test_organisation_services_shows_live_services_and_usage(
         'app.organisations_client.get_services_and_usage',
         return_value={"services": [
             {'service_id': SERVICE_ONE_ID, 'service_name': '1', 'chargeable_billable_sms': 250122, 'emails_sent': 13000,
-             'free_sms_limit': 250000, 'letter_cost': 30.50, 'sms_billable_units': 122, 'sms_cost': 0,
+             'free_sms_limit': 1000, 'letter_cost': 30.50, 'sms_billable_units': 122, 'sms_cost': 0,
              'sms_remainder': None},
             {'service_id': SERVICE_TWO_ID, 'service_name': '5', 'chargeable_billable_sms': 0, 'emails_sent': 20000,
-             'free_sms_limit': 250000, 'letter_cost': 0, 'sms_billable_units': 2500, 'sms_cost': 42.0,
+             'free_sms_limit': 1000, 'letter_cost': 0, 'sms_billable_units': 2500, 'sms_cost': 42.0,
              'sms_remainder': None}
         ]}
     )
@@ -450,7 +450,7 @@ def test_organisation_services_shows_live_services_and_usage_with_count_of_1(
         'app.organisations_client.get_services_and_usage',
         return_value={"services": [
             {'service_id': SERVICE_ONE_ID, 'service_name': '1', 'chargeable_billable_sms': 1, 'emails_sent': 1,
-             'free_sms_limit': 250000, 'letter_cost': 0, 'sms_billable_units': 1, 'sms_cost': 0,
+             'free_sms_limit': 1000, 'letter_cost': 0, 'sms_billable_units': 1, 'sms_cost': 0,
              'sms_remainder': None},
         ]}
     )
@@ -521,7 +521,7 @@ def test_organisation_services_shows_search_bar(
                 'service_name': 'Service 1',
                 'chargeable_billable_sms': 250122,
                 'emails_sent': 13000,
-                'free_sms_limit': 250000,
+                'free_sms_limit': 1000,
                 'letter_cost': 30.50,
                 'sms_billable_units': 122,
                 'sms_cost': 1.93,
@@ -568,7 +568,7 @@ def test_organisation_services_hides_search_bar_for_7_or_fewer_services(
                 'service_name': 'Service 1',
                 'chargeable_billable_sms': 250122,
                 'emails_sent': 13000,
-                'free_sms_limit': 250000,
+                'free_sms_limit': 1000,
                 'letter_cost': 30.50,
                 'sms_billable_units': 122,
                 'sms_cost': 1.93,
