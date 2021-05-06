@@ -88,12 +88,12 @@ def test_show_different_page_if_user_org_type_is_local(
     'test@example.nhs.uk',
 ))
 @pytest.mark.parametrize('inherited, posted, persisted, sms_limit', (
-    (None, 'charity', 'charity', 25000),
-    ('charity', None, 'charity', 25000),
-    (None, 'community_interest', 'community_interest', 25000),
-    ('community_interest', None, 'community_interest', 25000),
-    (None, 'other', 'other', 25000),
-    ('other', None, 'other', 25000)
+    (None, 'charity', 'charity', 1000),
+    ('charity', None, 'charity', 1000),
+    (None, 'community_interest', 'community_interest', 1000),
+    ('community_interest', None, 'community_interest', 1000),
+    (None, 'other', 'other', 1000),
+    ('other', None, 'other', 1000)
 ))
 def test_should_add_service_and_redirect_to_tour_when_no_services(
     mocker,
@@ -214,9 +214,9 @@ def test_get_should_only_show_nhs_org_types_radios_if_user_has_nhs_email(
 
 
 @pytest.mark.parametrize('organisation_type, free_allowance', [
-    ('charity', 25 * 1000),
-    ('community_interest', 25 * 1000),
-    ('other', 25 * 1000),
+    ('charity', 1000),
+    ('community_interest', 1000),
+    ('other', 1000),
 ])
 def test_should_add_service_and_redirect_to_dashboard_when_existing_service(
     app_,

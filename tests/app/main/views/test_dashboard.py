@@ -1014,7 +1014,7 @@ def test_usage_page(
 
     table = page.find('table').text.strip()
 
-    assert '249,860 free text messages' in table
+    assert '860 free text messages' in table
     assert '40 free text messages' in table
     assert '960 text messages at 1.65p' in table
     assert 'April' in table
@@ -1056,7 +1056,7 @@ def test_usage_page_with_letters(
 
     table = page.find('table').text.strip()
 
-    assert '249,860 free text messages' in table
+    assert '860 free text messages' in table
     assert '40 free text messages' in table
     assert '960 text messages at 1.65p' in table
     assert 'April' in table
@@ -1115,8 +1115,8 @@ def test_usage_page_displays_sms_messages_split_by_month(
     mock_get_free_sms_fragment_limit
 ):
     billable_units_resp = [
-        {'month': 'April', 'notification_type': 'sms', 'rate': 1.65, 'billing_units': 100000},
-        {'month': 'May', 'notification_type': 'sms', 'rate': 2.15, 'billing_units': 200000},
+        {'month': 'April', 'notification_type': 'sms', 'rate': 1.65, 'billing_units': 500},
+        {'month': 'May', 'notification_type': 'sms', 'rate': 2.15, 'billing_units': 1000},
         {'month': 'June', 'notification_type': 'sms', 'rate': 0.75, 'billing_units': 100000},
     ]
     mocker.patch('app.billing_api_client.get_billable_units', return_value=billable_units_resp)
@@ -1130,9 +1130,9 @@ def test_usage_page_displays_sms_messages_split_by_month(
     may_row = normalize_spaces(page.find('table').find_all('tr')[2].text)
     june_row = normalize_spaces(page.find('table').find_all('tr')[3].text)
 
-    assert '£0.00 100,000 free text messages' in april_row
-    assert '£825.00 150,000 free text messages 50,000 text messages at 1.65p' in may_row
-    assert '£1,650.00 100,000 text messages at 1.65p' in june_row
+    assert '£0.00 1,000 free text messages' in april_row
+    assert '£1,075.00 1,000 free text messages 50,000 text messages at 1.65p' in may_row
+    assert '£75,000.00 1,000 text messages at 1.65p' in june_row
 
 
 def test_usage_page_with_year_argument(
@@ -1532,21 +1532,21 @@ def test_aggregate_status_types(dict_in, expected_failed, expected_requested):
     ]
 )
 def test_get_free_paid_breakdown_for_billable_units(now, expected_number_of_months):
-    sms_allowance = 250000
+    sms_allowance = 1000
     with now:
         billing_units = get_free_paid_breakdown_for_billable_units(
             2016, sms_allowance, [
                 {
                     'month': 'April', 'international': False, 'rate_multiplier': 1,
-                    'notification_type': 'sms', 'rate': 1.65, 'billing_units': 100000
+                    'notification_type': 'sms', 'rate': 1.65, 'billing_units': 500
                 },
                 {
                     'month': 'May', 'international': False, 'rate_multiplier': 1,
-                    'notification_type': 'sms', 'rate': 1.65, 'billing_units': 100000
+                    'notification_type': 'sms', 'rate': 1.65, 'billing_units': 500
                 },
                 {
                     'month': 'June', 'international': False, 'rate_multiplier': 1,
-                    'notification_type': 'sms', 'rate': 1.65, 'billing_units': 100000
+                    'notification_type': 'sms', 'rate': 1.65, 'billing_units': 500
                 },
                 {
                     'month': 'February', 'international': False, 'rate_multiplier': 1,
@@ -1555,9 +1555,9 @@ def test_get_free_paid_breakdown_for_billable_units(now, expected_number_of_mont
             ]
         )
         assert list(billing_units) == [
-            {'free': 100000, 'name': 'April', 'paid': 0, 'letter_total': 0, 'letters': [], 'letter_cumulative': 0},
-            {'free': 100000, 'name': 'May', 'paid': 0, 'letter_total': 0, 'letters': [], 'letter_cumulative': 0},
-            {'free': 50000, 'name': 'June', 'paid': 50000, 'letter_total': 0, 'letters': [], 'letter_cumulative': 0},
+            {'free': 500, 'name': 'April', 'paid': 0, 'letter_total': 0, 'letters': [], 'letter_cumulative': 0},
+            {'free': 500, 'name': 'May', 'paid': 0, 'letter_total': 0, 'letters': [], 'letter_cumulative': 0},
+            {'free': 500, 'name': 'June', 'paid': 500, 'letter_total': 0, 'letters': [], 'letter_cumulative': 0},
             {'free': 0, 'name': 'July', 'paid': 0, 'letter_total': 0, 'letters': [], 'letter_cumulative': 0},
             {'free': 0, 'name': 'August', 'paid': 0, 'letter_total': 0, 'letters': [], 'letter_cumulative': 0},
             {'free': 0, 'name': 'September', 'paid': 0, 'letter_total': 0, 'letters': [], 'letter_cumulative': 0},
