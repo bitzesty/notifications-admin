@@ -1538,15 +1538,15 @@ def test_get_free_paid_breakdown_for_billable_units(now, expected_number_of_mont
             2016, sms_allowance, [
                 {
                     'month': 'April', 'international': False, 'rate_multiplier': 1,
-                    'notification_type': 'sms', 'rate': 1.65, 'billing_units': 100000
+                    'notification_type': 'sms', 'rate': 1.65, 'billing_units': 1000
                 },
                 {
                     'month': 'May', 'international': False, 'rate_multiplier': 1,
-                    'notification_type': 'sms', 'rate': 1.65, 'billing_units': 100000
+                    'notification_type': 'sms', 'rate': 1.65, 'billing_units': 1000
                 },
                 {
                     'month': 'June', 'international': False, 'rate_multiplier': 1,
-                    'notification_type': 'sms', 'rate': 1.65, 'billing_units': 100000
+                    'notification_type': 'sms', 'rate': 1.65, 'billing_units': 1000
                 },
                 {
                     'month': 'February', 'international': False, 'rate_multiplier': 1,
@@ -1733,6 +1733,6 @@ def test_should_show_usage_on_dashboard(
     ) == (
         'Unlimited '
         'free email allowance '
-        '£4,144.64 '
+        '£36.14 '
         'spent on text messages'
     )
