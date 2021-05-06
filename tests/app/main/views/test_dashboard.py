@@ -1115,8 +1115,8 @@ def test_usage_page_displays_sms_messages_split_by_month(
     mock_get_free_sms_fragment_limit
 ):
     billable_units_resp = [
-        {'month': 'April', 'notification_type': 'sms', 'rate': 1.65, 'billing_units': 100000},
-        {'month': 'May', 'notification_type': 'sms', 'rate': 2.15, 'billing_units': 200000},
+        {'month': 'April', 'notification_type': 'sms', 'rate': 1.65, 'billing_units': 500},
+        {'month': 'May', 'notification_type': 'sms', 'rate': 2.15, 'billing_units': 1000},
         {'month': 'June', 'notification_type': 'sms', 'rate': 0.75, 'billing_units': 100000},
     ]
     mocker.patch('app.billing_api_client.get_billable_units', return_value=billable_units_resp)
@@ -1131,8 +1131,8 @@ def test_usage_page_displays_sms_messages_split_by_month(
     june_row = normalize_spaces(page.find('table').find_all('tr')[3].text)
 
     assert '£0.00 1,000 free text messages' in april_row
-    assert '£825.00 1,000 free text messages 50,000 text messages at 1.65p' in may_row
-    assert '£1,650.00 1,000 text messages at 1.65p' in june_row
+    assert '£1,075.00 1,000 free text messages 50,000 text messages at 1.65p' in may_row
+    assert '£75,000.00 1,000 text messages at 1.65p' in june_row
 
 
 def test_usage_page_with_year_argument(
