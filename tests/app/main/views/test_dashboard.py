@@ -1538,15 +1538,15 @@ def test_get_free_paid_breakdown_for_billable_units(now, expected_number_of_mont
             2016, sms_allowance, [
                 {
                     'month': 'April', 'international': False, 'rate_multiplier': 1,
-                    'notification_type': 'sms', 'rate': 1.65, 'billing_units': 1000
+                    'notification_type': 'sms', 'rate': 1.65, 'billing_units': 500
                 },
                 {
                     'month': 'May', 'international': False, 'rate_multiplier': 1,
-                    'notification_type': 'sms', 'rate': 1.65, 'billing_units': 1000
+                    'notification_type': 'sms', 'rate': 1.65, 'billing_units': 500
                 },
                 {
                     'month': 'June', 'international': False, 'rate_multiplier': 1,
-                    'notification_type': 'sms', 'rate': 1.65, 'billing_units': 1000
+                    'notification_type': 'sms', 'rate': 1.65, 'billing_units': 500
                 },
                 {
                     'month': 'February', 'international': False, 'rate_multiplier': 1,
@@ -1555,8 +1555,8 @@ def test_get_free_paid_breakdown_for_billable_units(now, expected_number_of_mont
             ]
         )
         assert list(billing_units) == [
-            {'free': 1000, 'name': 'April', 'paid': 0, 'letter_total': 0, 'letters': [], 'letter_cumulative': 0},
-            {'free': 1000, 'name': 'May', 'paid': 0, 'letter_total': 0, 'letters': [], 'letter_cumulative': 0},
+            {'free': 500, 'name': 'April', 'paid': 0, 'letter_total': 0, 'letters': [], 'letter_cumulative': 0},
+            {'free': 500, 'name': 'May', 'paid': 0, 'letter_total': 0, 'letters': [], 'letter_cumulative': 0},
             {'free': 500, 'name': 'June', 'paid': 500, 'letter_total': 0, 'letters': [], 'letter_cumulative': 0},
             {'free': 0, 'name': 'July', 'paid': 0, 'letter_total': 0, 'letters': [], 'letter_cumulative': 0},
             {'free': 0, 'name': 'August', 'paid': 0, 'letter_total': 0, 'letters': [], 'letter_cumulative': 0},
