@@ -99,7 +99,7 @@ def mock_get_service_settings_page_common(
         'Organisation Test organisation Charity Change organisation for service',
         'Rate limit 3,000 per minute Change rate limit',
         'Message limit 1,000 per day Change daily message limit',
-        'Free text message allowance 250,000 per year Change free text message allowance',
+        'Free text message allowance 1,000 per year Change free text message allowance',
         'Email branding GOV.UK Change email branding (admin view)',
         'Letter branding Not set Change letter branding (admin view)',
         'Custom data retention Email – 7 days Change data retention',
@@ -3685,7 +3685,7 @@ def test_unknown_channel_404s(
     ),
     (
         'sms',
-        'You have a free allowance of 250,000 text messages each financial year.',
+        'You have a free allowance of 1,000 text messages each financial year.',
         'Send text messages',
         [],
         'False',

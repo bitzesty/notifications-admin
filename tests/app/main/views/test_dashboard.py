@@ -1014,7 +1014,7 @@ def test_usage_page(
 
     table = page.find('table').text.strip()
 
-    assert '249,860 free text messages' in table
+    assert '860 free text messages' in table
     assert '40 free text messages' in table
     assert '960 text messages at 1.65p' in table
     assert 'April' in table
