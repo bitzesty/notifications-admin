@@ -214,9 +214,9 @@ def test_get_should_only_show_nhs_org_types_radios_if_user_has_nhs_email(
 
 
 @pytest.mark.parametrize('organisation_type, free_allowance', [
-    ('charity', 25 * 1000),
-    ('community_interest', 25 * 1000),
-    ('other', 25 * 1000),
+    ('charity', 1000),
+    ('community_interest', 1000),
+    ('other', 1000),
 ])
 def test_should_add_service_and_redirect_to_dashboard_when_existing_service(
     app_,

@@ -1056,7 +1056,7 @@ def test_usage_page_with_letters(
 
     table = page.find('table').text.strip()
 
-    assert '249,860 free text messages' in table
+    assert '860 free text messages' in table
     assert '40 free text messages' in table
     assert '960 text messages at 1.65p' in table
     assert 'April' in table
@@ -1130,9 +1130,9 @@ def test_usage_page_displays_sms_messages_split_by_month(
     may_row = normalize_spaces(page.find('table').find_all('tr')[2].text)
     june_row = normalize_spaces(page.find('table').find_all('tr')[3].text)
 
-    assert '£0.00 100,000 free text messages' in april_row
-    assert '£825.00 150,000 free text messages 50,000 text messages at 1.65p' in may_row
-    assert '£1,650.00 100,000 text messages at 1.65p' in june_row
+    assert '£0.00 1,000 free text messages' in april_row
+    assert '£825.00 1,000 free text messages 50,000 text messages at 1.65p' in may_row
+    assert '£1,650.00 1,000 text messages at 1.65p' in june_row
 
 
 def test_usage_page_with_year_argument(
@@ -1555,9 +1555,9 @@ def test_get_free_paid_breakdown_for_billable_units(now, expected_number_of_mont
             ]
         )
         assert list(billing_units) == [
-            {'free': 100000, 'name': 'April', 'paid': 0, 'letter_total': 0, 'letters': [], 'letter_cumulative': 0},
-            {'free': 100000, 'name': 'May', 'paid': 0, 'letter_total': 0, 'letters': [], 'letter_cumulative': 0},
-            {'free': 50000, 'name': 'June', 'paid': 50000, 'letter_total': 0, 'letters': [], 'letter_cumulative': 0},
+            {'free': 1000, 'name': 'April', 'paid': 0, 'letter_total': 0, 'letters': [], 'letter_cumulative': 0},
+            {'free': 1000, 'name': 'May', 'paid': 0, 'letter_total': 0, 'letters': [], 'letter_cumulative': 0},
+            {'free': 500, 'name': 'June', 'paid': 500, 'letter_total': 0, 'letters': [], 'letter_cumulative': 0},
             {'free': 0, 'name': 'July', 'paid': 0, 'letter_total': 0, 'letters': [], 'letter_cumulative': 0},
             {'free': 0, 'name': 'August', 'paid': 0, 'letter_total': 0, 'letters': [], 'letter_cumulative': 0},
             {'free': 0, 'name': 'September', 'paid': 0, 'letter_total': 0, 'letters': [], 'letter_cumulative': 0},
@@ -1733,6 +1733,6 @@ def test_should_show_usage_on_dashboard(
     ) == (
         'Unlimited '
         'free email allowance '
-        '£36.14 '
+        '£4,144.64 '
         'spent on text messages'
     )
