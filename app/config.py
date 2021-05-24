@@ -155,10 +155,10 @@ class Preview(Config):
 class Staging(Config):
     HTTP_PROTOCOL = get_env_var('HTTP_PROTOCOL', 'https')
     HEADER_COLOUR = get_env_var('HEADER_COLOUR', '#6F72AF')  # $mauve
-    CSV_UPLOAD_BUCKET_NAME = get_env_var('CSV_UPLOAD_BUCKET_NAME', 'staging-notifications-csv-upload')
-    CONTACT_LIST_UPLOAD_BUCKET_NAME = get_env_var('CONTACT_LIST_UPLOAD_BUCKET_NAME', 'staging-contact-list')
-    LOGO_UPLOAD_BUCKET_NAME = get_env_var('LOGO_UPLOAD_BUCKET_NAME', 'public-logos-staging')
-    MOU_BUCKET_NAME = get_env_var('MOU_BUCKET_NAME', 'staging-notify.works-mou')
+    CSV_UPLOAD_BUCKET_NAME = get_env_var('CSV_UPLOAD_BUCKET_NAME', 'cast-staging-notifications-csv-upload')
+    CONTACT_LIST_UPLOAD_BUCKET_NAME = get_env_var('CONTACT_LIST_UPLOAD_BUCKET_NAME', 'cast-staging-contact-list')
+    LOGO_UPLOAD_BUCKET_NAME = get_env_var('LOGO_UPLOAD_BUCKET_NAME', 'cast-public-logos-staging')
+    MOU_BUCKET_NAME = get_env_var('MOU_BUCKET_NAME', 'cast-staging-notify.works-mou')
     TRANSIENT_UPLOADED_LETTERS = get_env_var('TRANSIENT_UPLOADED_LETTERS', 'staging-transient-uploaded-letters')
     NOTIFY_ENVIRONMENT = get_env_var('NOTIFY_ENVIRONMENT', 'staging')
     CHECK_PROXY_HEADER = False
@@ -169,10 +169,10 @@ class Staging(Config):
 class Live(Config):
     HEADER_COLOUR = get_env_var('HEADER_COLOUR', '#005EA5')  # $govuk-blue
     HTTP_PROTOCOL = get_env_var('HTTP_PROTOCOL', 'https')
-    CSV_UPLOAD_BUCKET_NAME = get_env_var('CSV_UPLOAD_BUCKET_NAME', 'live-notifications-csv-upload')
-    CONTACT_LIST_UPLOAD_BUCKET_NAME = get_env_var('CONTACT_LIST_UPLOAD_BUCKET_NAME', 'production-contact-list')
-    LOGO_UPLOAD_BUCKET_NAME = get_env_var('LOGO_UPLOAD_BUCKET_NAME', 'public-logos-production')
-    MOU_BUCKET_NAME = get_env_var('MOU_BUCKET_NAME', 'notifications.service.gov.uk-mou')
+    CSV_UPLOAD_BUCKET_NAME = get_env_var('CSV_UPLOAD_BUCKET_NAME', 'cast-live-notifications-csv-upload')
+    CONTACT_LIST_UPLOAD_BUCKET_NAME = get_env_var('CONTACT_LIST_UPLOAD_BUCKET_NAME', 'cast-production-contact-list')
+    LOGO_UPLOAD_BUCKET_NAME = get_env_var('LOGO_UPLOAD_BUCKET_NAME', 'cast-public-logos-production')
+    MOU_BUCKET_NAME = get_env_var('MOU_BUCKET_NAME', 'cast-notifications.service.gov.uk-mou')
     TRANSIENT_UPLOADED_LETTERS = get_env_var('TRANSIENT_UPLOADED_LETTERS', 'production-transient-uploaded-letters')
     NOTIFY_ENVIRONMENT = get_env_var('NOTIFY_ENVIRONMENT', 'live')
     CHECK_PROXY_HEADER = get_env_var("CHECK_PROXY_HEADER", 'False').lower() in ['true', '1']
