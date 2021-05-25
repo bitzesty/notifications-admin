@@ -159,7 +159,7 @@ class Staging(Config):
     CONTACT_LIST_UPLOAD_BUCKET_NAME = get_env_var('CONTACT_LIST_UPLOAD_BUCKET_NAME', 'cast-staging-contact-list')
     LOGO_UPLOAD_BUCKET_NAME = get_env_var('LOGO_UPLOAD_BUCKET_NAME', 'cast-public-logos-staging')
     MOU_BUCKET_NAME = get_env_var('MOU_BUCKET_NAME', 'cast-staging-notify.works-mou')
-    TRANSIENT_UPLOADED_LETTERS = get_env_var('TRANSIENT_UPLOADED_LETTERS', 'staging-transient-uploaded-letters')
+    TRANSIENT_UPLOADED_LETTERS = get_env_var('TRANSIENT_UPLOADED_LETTERS', 'cast-staging-transient-uploaded-letters')
     NOTIFY_ENVIRONMENT = get_env_var('NOTIFY_ENVIRONMENT', 'staging')
     CHECK_PROXY_HEADER = False
     ASSET_DOMAIN = get_env_var('ASSET_DOMAIN', 'static.staging-notify.works')
@@ -173,7 +173,7 @@ class Live(Config):
     CONTACT_LIST_UPLOAD_BUCKET_NAME = get_env_var('CONTACT_LIST_UPLOAD_BUCKET_NAME', 'cast-production-contact-list')
     LOGO_UPLOAD_BUCKET_NAME = get_env_var('LOGO_UPLOAD_BUCKET_NAME', 'cast-public-logos-production')
     MOU_BUCKET_NAME = get_env_var('MOU_BUCKET_NAME', 'cast-notifications.service.gov.uk-mou')
-    TRANSIENT_UPLOADED_LETTERS = get_env_var('TRANSIENT_UPLOADED_LETTERS', 'production-transient-uploaded-letters')
+    TRANSIENT_UPLOADED_LETTERS = get_env_var('TRANSIENT_UPLOADED_LETTERS', 'cast-production-transient-uploaded-letters')
     NOTIFY_ENVIRONMENT = get_env_var('NOTIFY_ENVIRONMENT', 'live')
     CHECK_PROXY_HEADER = get_env_var("CHECK_PROXY_HEADER", 'False').lower() in ['true', '1']
     ASSET_DOMAIN = get_env_var('ASSET_DOMAIN', 'static.notifications.service.gov.uk')
