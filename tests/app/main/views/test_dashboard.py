@@ -1130,9 +1130,9 @@ def test_usage_page_displays_sms_messages_split_by_month(
     may_row = normalize_spaces(page.find('table').find_all('tr')[2].text)
     june_row = normalize_spaces(page.find('table').find_all('tr')[3].text)
 
-    assert '£0.00 1,000 free text messages' in april_row
-    assert '£1,075.00 1,000 free text messages 50,000 text messages at 1.65p' in may_row
-    assert '£75,000.00 1,000 text messages at 1.65p' in june_row
+    assert '£0.00 500 free text messages' in april_row
+    assert '£1,075.00 500 free text messages 50,000 text messages at 1.65p' in may_row
+    assert '£75,000.00 500 text messages at 1.65p' in june_row
 
 
 def test_usage_page_with_year_argument(
