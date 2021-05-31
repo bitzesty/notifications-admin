@@ -1009,19 +1009,18 @@ def test_usage_page(
     assert normalize_spaces(nav.find('a', {'aria-current': 'page'}).text) == '2011 to 2012 financial year'
     assert normalize_spaces(unselected_nav_links[0].text) == '2010 to 2011 financial year'
     assert normalize_spaces(unselected_nav_links[1].text) == '2009 to 2010 financial year'
-    assert '252,190' in cols[1].text
+    assert '3,190' in cols[1].text
     assert 'Text messages' in cols[1].text
 
     table = page.find('table').text.strip()
 
-    assert '860 free text messages' in table
-    assert '40 free text messages' in table
-    assert '960 text messages at 1.65p' in table
+    assert '1,000 free text messages' in table
+    assert '248,860 text messages at 1.65p' in table
     assert 'April' in table
     assert 'February' in table
     assert 'March' in table
-    assert '£28.99' in table
-    assert '140 free text messages' in table
+    assert '£20.30' in table
+    assert '1,100 text messages at 1.65p' in table
     assert '£20.30' in table
     assert '1,230 text messages at 1.65p' in table
 
@@ -1051,19 +1050,15 @@ def test_usage_page_with_letters(
     assert normalize_spaces(nav.find('a', {'aria-current': 'page'}).text) == '2011 to 2012 financial year'
     assert normalize_spaces(unselected_nav_links[0].text) == '2010 to 2011 financial year'
     assert normalize_spaces(unselected_nav_links[1].text) == '2009 to 2010 financial year'
-    assert '252,190' in cols[1].text
+    assert '3,190' in cols[1].text
     assert 'Text messages' in cols[1].text
 
     table = page.find('table').text.strip()
 
-    assert '860 free text messages' in table
-    assert '40 free text messages' in table
-    assert '960 text messages at 1.65p' in table
+    assert '1,000 free text messages' in table
     assert 'April' in table
     assert 'February' in table
     assert 'March' in table
-    assert '£28.99' in table
-    assert '140 free text messages' in table
     assert '£20.30' in table
     assert '1,230 text messages at 1.65p' in table
     assert '10 second class letters at 31p' not in normalize_spaces(table)
@@ -1130,9 +1125,9 @@ def test_usage_page_displays_sms_messages_split_by_month(
     may_row = normalize_spaces(page.find('table').find_all('tr')[2].text)
     june_row = normalize_spaces(page.find('table').find_all('tr')[3].text)
 
-    assert '£0.00 1,000 free text messages' in april_row
-    assert '£1,075.00 1,000 free text messages 50,000 text messages at 1.65p' in may_row
-    assert '£75,000.00 1,000 text messages at 1.65p' in june_row
+    assert '£0.00 500 free text messages' in april_row
+    assert '£8.25 500 free text messages 500 text messages at 1.65p' in may_row
+    assert '£1,650.00 100,000 text messages at 1.65p' in june_row
 
 
 def test_usage_page_with_year_argument(
@@ -1557,7 +1552,7 @@ def test_get_free_paid_breakdown_for_billable_units(now, expected_number_of_mont
         assert list(billing_units) == [
             {'free': 500, 'name': 'April', 'paid': 0, 'letter_total': 0, 'letters': [], 'letter_cumulative': 0},
             {'free': 500, 'name': 'May', 'paid': 0, 'letter_total': 0, 'letters': [], 'letter_cumulative': 0},
-            {'free': 500, 'name': 'June', 'paid': 500, 'letter_total': 0, 'letters': [], 'letter_cumulative': 0},
+            {'free': 0, 'name': 'June', 'paid': 500, 'letter_total': 0, 'letters': [], 'letter_cumulative': 0},
             {'free': 0, 'name': 'July', 'paid': 0, 'letter_total': 0, 'letters': [], 'letter_cumulative': 0},
             {'free': 0, 'name': 'August', 'paid': 0, 'letter_total': 0, 'letters': [], 'letter_cumulative': 0},
             {'free': 0, 'name': 'September', 'paid': 0, 'letter_total': 0, 'letters': [], 'letter_cumulative': 0},
